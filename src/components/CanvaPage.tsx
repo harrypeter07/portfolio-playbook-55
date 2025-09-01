@@ -87,7 +87,7 @@ export const CanvaPage = ({ children, activeSection }: CanvaPageProps) => {
       </div>
 
       {/* Canvas Area */}
-      <div className="flex-1 bg-muted/20 p-8 overflow-auto">
+      <div className="flex-1 bg-gray-100 p-8 overflow-auto">
         <div className="flex items-center justify-center min-h-full">
           <Card 
             className="bg-white shadow-2xl border-2 border-border animate-fade-in"

@@ -1,15 +1,21 @@
+import { PortfolioSection, PortfolioData } from "./PortfolioBuilder";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
 import { 
   User, 
-  FolderOpen, 
   Briefcase, 
-  Award, 
-  Mail,
-  ChevronRight,
-  Plus
+  GraduationCap, 
+  Code, 
+  Mail, 
+  Plus,
+  Search,
+  Grid3X3,
+  Type,
+  Image as ImageIcon,
+  Shapes
 } from "lucide-react";
-import { PortfolioSection, PortfolioData } from "./PortfolioBuilder";
+import { Input } from "@/components/ui/input";
 
 interface PortfolioSidebarProps {
   activeSection: PortfolioSection;
@@ -17,136 +23,139 @@ interface PortfolioSidebarProps {
   portfolioData: PortfolioData;
 }
 
-const sections = [
-  {
-    id: 'about' as PortfolioSection,
-    label: 'About Me',
-    icon: User,
-    color: 'bg-gradient-primary',
-    description: 'Personal information and bio'
+const sectionConfig = {
+  about: { 
+    icon: User, 
+    label: "About", 
+    color: "bg-blue-500",
+    description: "Personal info" 
   },
-  {
-    id: 'projects' as PortfolioSection,
-    label: 'Projects',
-    icon: FolderOpen,
-    color: 'bg-gradient-accent',
-    description: 'Showcase your work'
+  projects: { 
+    icon: Code, 
+    label: "Projects", 
+    color: "bg-green-500",
+    description: "Your work" 
   },
-  {
-    id: 'experience' as PortfolioSection,
-    label: 'Experience',
-    icon: Briefcase,
-    color: 'bg-purple-500',
-    description: 'Work history and roles'
+  experience: { 
+    icon: Briefcase, 
+    label: "Experience", 
+    color: "bg-purple-500",
+    description: "Work history" 
   },
-  {
-    id: 'skills' as PortfolioSection,
-    label: 'Skills',
-    icon: Award,
-    color: 'bg-green-500',
-    description: 'Technical and soft skills'
+  skills: { 
+    icon: GraduationCap, 
+    label: "Skills", 
+    color: "bg-orange-500",
+    description: "Abilities" 
   },
-  {
-    id: 'contact' as PortfolioSection,
-    label: 'Contact',
-    icon: Mail,
-    color: 'bg-blue-500',
-    description: 'Get in touch information'
-  }
-];
+  contact: { 
+    icon: Mail, 
+    label: "Contact", 
+    color: "bg-red-500",
+    description: "Get in touch" 
+  },
+};
 
-export const PortfolioSidebar = ({ 
-  activeSection, 
-  onSectionChange, 
-  portfolioData 
+export const PortfolioSidebar = ({
+  activeSection,
+  onSectionChange,
+  portfolioData,
 }: PortfolioSidebarProps) => {
-  const getSectionCount = (sectionId: PortfolioSection) => {
-    switch (sectionId) {
-      case 'projects':
-        return portfolioData.projects.length;
-      case 'experience':
-        return portfolioData.experience.length;
-      case 'skills':
-        return portfolioData.skills.length;
-      default:
-        return null;
-    }
-  };
-
   return (
-    <aside className="w-80 bg-gradient-card border-r border-border/50 backdrop-blur-sm">
-      <div className="p-6">
-        <div className="mb-6">
-          <h2 className="text-lg font-semibold text-foreground mb-2">
-            Portfolio Sections
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            Build your portfolio by selecting sections below
-          </p>
+    <aside className="w-80 bg-white border-r border-gray-200 h-full overflow-y-auto">
+      {/* Search */}
+      <div className="p-4 border-b border-gray-100">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+          <Input 
+            placeholder="Search sections..."
+            className="pl-10 h-9 text-sm border-gray-200 focus:border-purple-300"
+          />
         </div>
+      </div>
 
-        <div className="space-y-3">
-          {sections.map((section) => {
-            const Icon = section.icon;
-            const isActive = activeSection === section.id;
-            const count = getSectionCount(section.id);
+      {/* Design Elements */}
+      <div className="p-4">
+        <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Design</h3>
+        <div className="grid grid-cols-4 gap-2 mb-4">
+          <Button 
+            variant="ghost" 
+            className="h-12 flex flex-col items-center gap-1 hover:bg-gray-50 text-gray-600"
+          >
+            <Type className="w-5 h-5" />
+            <span className="text-xs">Text</span>
+          </Button>
+          <Button 
+            variant="ghost" 
+            className="h-12 flex flex-col items-center gap-1 hover:bg-gray-50 text-gray-600"
+          >
+            <ImageIcon className="w-5 h-5" />
+            <span className="text-xs">Image</span>
+          </Button>
+          <Button 
+            variant="ghost" 
+            className="h-12 flex flex-col items-center gap-1 hover:bg-gray-50 text-gray-600"
+          >
+            <Shapes className="w-5 h-5" />
+            <span className="text-xs">Shapes</span>
+          </Button>
+          <Button 
+            variant="ghost" 
+            className="h-12 flex flex-col items-center gap-1 hover:bg-gray-50 text-gray-600"
+          >
+            <Grid3X3 className="w-5 h-5" />
+            <span className="text-xs">Layout</span>
+          </Button>
+        </div>
+      </div>
 
+      {/* Portfolio Sections */}
+      <div className="p-4">
+        <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Portfolio Sections</h3>
+        <div className="space-y-1">
+          {(Object.keys(sectionConfig) as PortfolioSection[]).map((section) => {
+            const config = sectionConfig[section];
+            const Icon = config.icon;
+            const isActive = activeSection === section;
+            
             return (
               <Button
-                key={section.id}
+                key={section}
                 variant="ghost"
-                className={`w-full h-auto p-4 justify-start card-hover animate-fade-in ${
+                onClick={() => onSectionChange(section)}
+                className={`w-full justify-start h-10 px-3 rounded-lg text-left transition-colors ${
                   isActive 
-                    ? 'bg-primary/10 border border-primary/20 glow-primary' 
-                    : 'hover:bg-secondary/50'
+                    ? 'bg-purple-50 text-purple-700 border border-purple-200' 
+                    : 'hover:bg-gray-50 text-gray-700'
                 }`}
-                onClick={() => onSectionChange(section.id)}
               >
-                <div className="flex items-center w-full">
-                  <div className={`w-10 h-10 rounded-lg ${section.color} flex items-center justify-center mr-3`}>
-                    <Icon className="w-5 h-5 text-white" />
+                <div className="flex items-center gap-3">
+                  <div className={`w-6 h-6 rounded flex items-center justify-center ${
+                    isActive ? 'bg-purple-100' : 'bg-gray-100'
+                  }`}>
+                    <Icon className={`w-3 h-3 ${
+                      isActive ? 'text-purple-600' : 'text-gray-500'
+                    }`} />
                   </div>
-                  
-                  <div className="flex-1 text-left">
-                    <div className="flex items-center justify-between">
-                      <h3 className="font-medium text-foreground">
-                        {section.label}
-                      </h3>
-                      <div className="flex items-center space-x-2">
-                        {count !== null && (
-                          <Badge variant="secondary" className="text-xs">
-                            {count}
-                          </Badge>
-                        )}
-                        <ChevronRight className={`w-4 h-4 transition-transform ${
-                          isActive ? 'rotate-90' : ''
-                        }`} />
-                      </div>
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      {section.description}
-                    </p>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium text-sm">{config.label}</div>
+                    <div className="text-xs text-gray-500">{config.description}</div>
                   </div>
                 </div>
               </Button>
             );
           })}
         </div>
+      </div>
 
-        {/* Quick Add Section */}
-        <div className="mt-8 p-4 bg-accent/10 rounded-lg border border-accent/20">
-          <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-medium text-foreground">Quick Actions</h3>
-          </div>
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className="w-full justify-start hover:bg-accent/20"
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            Add New Project
-          </Button>
-        </div>
+      {/* Quick Add */}
+      <div className="p-4 border-t border-gray-100 mt-4">
+        <Button 
+          className="w-full bg-purple-600 hover:bg-purple-700 text-white h-9 text-sm"
+        >
+          <Plus className="w-4 h-4 mr-2" />
+          Add New Section
+        </Button>
       </div>
     </aside>
   );

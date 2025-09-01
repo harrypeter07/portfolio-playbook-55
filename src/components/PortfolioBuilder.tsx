@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { PortfolioSidebar } from "@/components/PortfolioSidebar";
 import { PortfolioCanvas } from "@/components/PortfolioCanvas";
-import { PortfolioInspector } from "@/components/PortfolioInspector";
 import { TopBar } from "@/components/TopBar";
+import { CanvaToolbar } from "@/components/CanvaToolbar";
 
 export type PortfolioSection = 'about' | 'projects' | 'experience' | 'skills' | 'contact';
 
@@ -70,13 +70,16 @@ const PortfolioBuilder = () => {
   const [isPreviewMode, setIsPreviewMode] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gradient-page">
+    <div className="min-h-screen bg-gray-50">
       <TopBar 
         isPreviewMode={isPreviewMode}
         onTogglePreview={() => setIsPreviewMode(!isPreviewMode)}
       />
       
-      <div className="flex h-[calc(100vh-4rem)]">
+      {/* Canva-style formatting toolbar */}
+      {!isPreviewMode && <CanvaToolbar />}
+      
+      <div className={`flex ${isPreviewMode ? 'h-[calc(100vh-3.5rem)]' : 'h-[calc(100vh-7.5rem)]'}`}>
         {/* Left Sidebar - Portfolio Sections */}
         {!isPreviewMode && (
           <PortfolioSidebar
@@ -86,21 +89,13 @@ const PortfolioBuilder = () => {
           />
         )}
 
-        {/* Main Canvas */}
+        {/* Main Canvas - Full width when in preview mode */}
         <PortfolioCanvas
           activeSection={activeSection}
           portfolioData={portfolioData}
           onDataChange={setPortfolioData}
           isPreviewMode={isPreviewMode}
         />
-
-        {/* Right Inspector - Styling Panel */}
-        {!isPreviewMode && (
-          <PortfolioInspector
-            activeSection={activeSection}
-            portfolioData={portfolioData}
-          />
-        )}
       </div>
     </div>
   );
