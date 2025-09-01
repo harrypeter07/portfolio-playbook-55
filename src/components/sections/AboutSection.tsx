@@ -36,31 +36,29 @@ export const AboutSection = ({ data, onChange, isPreviewMode }: AboutSectionProp
 
   if (isPreviewMode) {
     return (
-      <div className="max-w-3xl mx-auto">
-        <Card className="p-8 bg-white shadow-lg">
-          <div className="flex flex-col md:flex-row items-center gap-8">
-            <Avatar className="w-32 h-32">
-              <AvatarImage src={data.image} />
-              <AvatarFallback className="bg-gradient-primary text-white text-2xl">
-                {data.name.split(' ').map(n => n[0]).join('')}
-              </AvatarFallback>
-            </Avatar>
-            
-            <div className="flex-1 text-center md:text-left">
-              <h1 className="text-4xl font-bold text-gray-900 mb-2">{data.name}</h1>
-              <h2 className="text-xl text-gray-600 mb-4">{data.title}</h2>
-              <p className="text-gray-700 leading-relaxed">{data.description}</p>
-            </div>
+      <div className="w-full h-full p-8">
+        <div className="flex flex-col md:flex-row items-center gap-8 h-full">
+          <Avatar className="w-32 h-32">
+            <AvatarImage src={data.image} />
+            <AvatarFallback className="bg-gradient-primary text-white text-2xl">
+              {data.name.split(' ').map(n => n[0]).join('')}
+            </AvatarFallback>
+          </Avatar>
+          
+          <div className="flex-1 text-center md:text-left">
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">{data.name}</h1>
+            <h2 className="text-xl text-gray-600 mb-4">{data.title}</h2>
+            <p className="text-gray-700 leading-relaxed">{data.description}</p>
           </div>
-        </Card>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
-      {/* Edit Controls */}
-      <div className="flex items-center justify-between">
+    <div className="w-full h-full flex flex-col">
+      {/* Edit Controls - Fixed at top */}
+      <div className="flex items-center justify-between p-4 border-b border-border bg-white/50 backdrop-blur-sm">
         <h3 className="text-lg font-semibold text-foreground">About Me Section</h3>
         {!isEditing ? (
           <Button onClick={() => setIsEditing(true)} className="card-hover">
@@ -81,9 +79,9 @@ export const AboutSection = ({ data, onChange, isPreviewMode }: AboutSectionProp
         )}
       </div>
 
-      {/* Preview Card */}
-      <Card className="p-8 bg-gradient-card card-hover animate-bounce-in">
-        <div className="flex flex-col md:flex-row items-center gap-8">
+      {/* Main Content Area */}
+      <div className="flex-1 p-8 overflow-auto">
+        <div className="flex flex-col md:flex-row items-center gap-8 h-full">
           {/* Profile Image */}
           <div className="relative">
             <Avatar 
@@ -148,11 +146,11 @@ export const AboutSection = ({ data, onChange, isPreviewMode }: AboutSectionProp
             )}
           </div>
         </div>
-      </Card>
+      </div>
 
-      {/* Tips Card */}
+      {/* Tips Panel - Fixed at bottom */}
       {!isPreviewMode && (
-        <Card className="p-4 bg-accent/10 border-accent/20 animate-fade-in">
+        <div className="p-4 bg-accent/10 border-t border-accent/20">
           <h4 className="font-medium text-foreground mb-2">💡 Tips for a great About section:</h4>
           <ul className="text-sm text-muted-foreground space-y-1">
             <li>• Keep it personal but professional</li>
@@ -160,7 +158,7 @@ export const AboutSection = ({ data, onChange, isPreviewMode }: AboutSectionProp
             <li>• Use a high-quality, professional photo</li>
             <li>• Show your personality and passion</li>
           </ul>
-        </Card>
+        </div>
       )}
     </div>
   );

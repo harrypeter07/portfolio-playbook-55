@@ -1,6 +1,7 @@
 import { PortfolioSection, PortfolioData } from "./PortfolioBuilder";
 import { AboutSection } from "./sections/AboutSection";
 import { ProjectsSection } from "./sections/ProjectsSection";
+import { CanvaPage } from "./CanvaPage";
 import { Card } from "@/components/ui/card";
 import { Construction } from "lucide-react";
 
@@ -54,30 +55,21 @@ export const PortfolioCanvas = ({
     }
   };
 
-  return (
-    <main className={`flex-1 p-6 overflow-y-auto ${isPreviewMode ? 'bg-white' : ''}`}>
-      <div className="max-w-4xl mx-auto">
-        {!isPreviewMode && (
-          <div className="mb-6 animate-fade-in">
-            <h2 className="text-2xl font-bold text-foreground mb-2 capitalize">
-              {activeSection === 'about' ? 'About Me' : 
-               activeSection === 'projects' ? 'Projects' :
-               activeSection}
-            </h2>
-            <p className="text-muted-foreground">
-              {activeSection === 'about' && 'Tell your story and showcase your personality'}
-              {activeSection === 'projects' && 'Showcase your best work and achievements'}
-              {activeSection === 'experience' && 'Highlight your professional journey'}
-              {activeSection === 'skills' && 'Display your technical and soft skills'}
-              {activeSection === 'contact' && 'Make it easy for people to reach you'}
-            </p>
-          </div>
-        )}
-
-        <div className="animate-fade-in">
+  if (isPreviewMode) {
+    return (
+      <main className="flex-1 bg-white overflow-hidden">
+        <CanvaPage activeSection={activeSection}>
           {renderSection()}
-        </div>
-      </div>
+        </CanvaPage>
+      </main>
+    );
+  }
+
+  return (
+    <main className="flex-1 overflow-hidden">
+      <CanvaPage activeSection={activeSection}>
+        {renderSection()}
+      </CanvaPage>
     </main>
   );
 };
