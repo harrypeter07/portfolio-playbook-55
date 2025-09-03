@@ -8,6 +8,7 @@ import { WhiteboardCanvas } from "@/components/WhiteboardCanvas";
 import { ProjectPages } from "@/components/ProjectPages";
 import { ThemeProvider, DoodleOverlay } from "@/components/AdaptiveTheme";
 import { MagicAnimate } from "@/components/MagicAnimate";
+import { EasterEggManager } from "@/components/EasterEggs";
 
 export type PortfolioSection = 'about' | 'projects' | 'experience' | 'skills' | 'contact' | 'canvas' | 'whiteboard' | 'project-pages';
 
@@ -81,6 +82,7 @@ const PortfolioBuilder = () => {
     <ThemeProvider>
       <div className="min-h-screen bg-gray-50 relative">
         <DoodleOverlay />
+        <EasterEggManager />
         
         <TopBar 
           isPreviewMode={isPreviewMode}
