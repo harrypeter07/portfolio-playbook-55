@@ -8,14 +8,12 @@ import { Construction } from "lucide-react";
 interface PortfolioCanvasProps {
   activeSection: PortfolioSection;
   portfolioData: PortfolioData;
-  onDataChange: (data: PortfolioData) => void;
   isPreviewMode: boolean;
 }
 
 export const PortfolioCanvas = ({
   activeSection,
   portfolioData,
-  onDataChange,
   isPreviewMode
 }: PortfolioCanvasProps) => {
   const renderSection = () => {
@@ -24,9 +22,6 @@ export const PortfolioCanvas = ({
         return (
           <AboutSection
             data={portfolioData.about}
-            onChange={(aboutData) => 
-              onDataChange({ ...portfolioData, about: aboutData })
-            }
             isPreviewMode={isPreviewMode}
           />
         );
@@ -34,9 +29,6 @@ export const PortfolioCanvas = ({
         return (
           <ProjectsSection
             data={portfolioData.projects}
-            onChange={(projectsData) => 
-              onDataChange({ ...portfolioData, projects: projectsData })
-            }
             isPreviewMode={isPreviewMode}
           />
         );

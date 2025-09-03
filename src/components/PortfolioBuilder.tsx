@@ -123,14 +123,13 @@ const PortfolioBuilder = () => {
                 onProjectUpdate={setCurrentProject}
                 isPreviewMode={isPreviewMode}
               />
-            ) : (
-              <PortfolioCanvas
-                activeSection={activeSection}
-                portfolioData={portfolioData}
-                onDataChange={setPortfolioData}
-                isPreviewMode={isPreviewMode}
-              />
-            )}
+                               ) : (
+                     <PortfolioCanvas
+                       activeSection={activeSection}
+                       portfolioData={portfolioData}
+                       isPreviewMode={isPreviewMode}
+                     />
+                   )}
           </MagicAnimate>
         </div>
       </div>
