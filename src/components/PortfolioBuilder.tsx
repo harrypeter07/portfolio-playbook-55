@@ -1,10 +1,15 @@
 import { useState } from "react";
-import { PortfolioSidebar } from "@/components/PortfolioSidebar";
+import { EnhancedSidebar } from "@/components/EnhancedSidebar";
 import { PortfolioCanvas } from "@/components/PortfolioCanvas";
 import { TopBar } from "@/components/TopBar";
 import { CanvaToolbar } from "@/components/CanvaToolbar";
+import { DragDropCanvas, DraggableItem } from "@/components/DragDropCanvas";
+import { WhiteboardCanvas } from "@/components/WhiteboardCanvas";
+import { ProjectPages } from "@/components/ProjectPages";
+import { ThemeProvider, DoodleOverlay } from "@/components/AdaptiveTheme";
+import { MagicAnimate } from "@/components/MagicAnimate";
 
-export type PortfolioSection = 'about' | 'projects' | 'experience' | 'skills' | 'contact';
+export type PortfolioSection = 'about' | 'projects' | 'experience' | 'skills' | 'contact' | 'canvas' | 'whiteboard' | 'project-pages';
 
 export interface PortfolioData {
   about: {
@@ -68,36 +73,66 @@ const PortfolioBuilder = () => {
   });
 
   const [isPreviewMode, setIsPreviewMode] = useState(false);
+  const [canvasItems, setCanvasItems] = useState<DraggableItem[]>([]);
+  const [whiteboardElements, setWhiteboardElements] = useState<any[]>([]);
+  const [currentProject, setCurrentProject] = useState<any>(null);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <TopBar 
-        isPreviewMode={isPreviewMode}
-        onTogglePreview={() => setIsPreviewMode(!isPreviewMode)}
-      />
-      
-      {/* Canva-style formatting toolbar */}
-      {!isPreviewMode && <CanvaToolbar />}
-      
-      <div className={`flex ${isPreviewMode ? 'h-[calc(100vh-3.5rem)]' : 'h-[calc(100vh-7.5rem)]'}`}>
-        {/* Left Sidebar - Portfolio Sections */}
-        {!isPreviewMode && (
-          <PortfolioSidebar
-            activeSection={activeSection}
-            onSectionChange={setActiveSection}
-            portfolioData={portfolioData}
-          />
-        )}
-
-        {/* Main Canvas - Full width when in preview mode */}
-        <PortfolioCanvas
-          activeSection={activeSection}
-          portfolioData={portfolioData}
-          onDataChange={setPortfolioData}
+    <ThemeProvider>
+      <div className="min-h-screen bg-gray-50 relative">
+        <DoodleOverlay />
+        
+        <TopBar 
           isPreviewMode={isPreviewMode}
+          onTogglePreview={() => setIsPreviewMode(!isPreviewMode)}
         />
+        
+        {/* Canva-style formatting toolbar */}
+        {!isPreviewMode && <CanvaToolbar />}
+        
+        <div className={`flex ${isPreviewMode ? 'h-[calc(100vh-3.5rem)]' : 'h-[calc(100vh-7.5rem)]'}`}>
+          {/* Left Sidebar - Portfolio Sections */}
+          {!isPreviewMode && (
+            <EnhancedSidebar
+              activeSection={activeSection}
+              onSectionChange={setActiveSection}
+              isPreviewMode={isPreviewMode}
+              onTogglePreview={() => setIsPreviewMode(!isPreviewMode)}
+            />
+          )}
+
+          {/* Main Canvas - Full width when in preview mode */}
+          <MagicAnimate type="fade" delay={0.2}>
+            {activeSection === 'canvas' ? (
+              <DragDropCanvas
+                items={canvasItems}
+                onItemsChange={setCanvasItems}
+                isPreviewMode={isPreviewMode}
+              />
+            ) : activeSection === 'whiteboard' ? (
+              <WhiteboardCanvas
+                elements={whiteboardElements}
+                onElementsChange={setWhiteboardElements}
+                isPreviewMode={isPreviewMode}
+              />
+            ) : activeSection === 'project-pages' && currentProject ? (
+              <ProjectPages
+                project={currentProject}
+                onProjectUpdate={setCurrentProject}
+                isPreviewMode={isPreviewMode}
+              />
+            ) : (
+              <PortfolioCanvas
+                activeSection={activeSection}
+                portfolioData={portfolioData}
+                onDataChange={setPortfolioData}
+                isPreviewMode={isPreviewMode}
+              />
+            )}
+          </MagicAnimate>
+        </div>
       </div>
-    </div>
+    </ThemeProvider>
   );
 };
 
