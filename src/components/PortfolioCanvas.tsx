@@ -2,6 +2,9 @@ import React from "react";
 import { PortfolioSection, PortfolioData } from "./PortfolioBuilder";
 import { AboutSection } from "./sections/AboutSection";
 import { ProjectsSection } from "./sections/ProjectsSection";
+import { ExperienceSection } from "./sections/ExperienceSection";
+import { SkillsSection } from "./sections/SkillsSection";
+import { ContactSection } from "./sections/ContactSection";
 import { CanvaPage } from "./CanvaPage";
 import { Card } from "@/components/ui/card";
 import { Construction } from "lucide-react";
@@ -20,11 +23,19 @@ export const PortfolioCanvas = ({
   isPreviewMode,
   currentPage = 'P1'
 }: PortfolioCanvasProps) => {
-  const { currentPage: ctxPage, activeSection: ctxActiveSection, setTotalPages, setCurrentPage } = useEditor();
+  const { currentPage: ctxPage, activeSection: ctxActiveSection, setTotalPages, setCurrentPage, setTextStyle } = useEditor();
   const page = ctxPage || currentPage;
 
-  // Set total pages based on active section
+  // Set total pages based on active section and reset styling to default
   React.useEffect(() => {
+    // Reset text styling to default when switching sections
+    setTextStyle({
+      fontFamily: 'Inter',
+      fontSizePx: 16,
+      color: '#111111',
+      align: 'left'
+    });
+
     if (ctxActiveSection === 'about') {
       setTotalPages(1);
       setCurrentPage(1);
@@ -35,7 +46,7 @@ export const PortfolioCanvas = ({
       setTotalPages(1);
       setCurrentPage(1);
     }
-  }, [ctxActiveSection, portfolioData.projects.length, setTotalPages, setCurrentPage]);
+  }, [ctxActiveSection, portfolioData.projects.length, setTotalPages, setCurrentPage, setTextStyle]);
   const renderSection = () => {
     // Show content based on active section and current page
     switch (ctxActiveSection) {
@@ -53,6 +64,27 @@ export const PortfolioCanvas = ({
         return (
           <ProjectsSection
             data={currentProject ? [currentProject] : []}
+            isPreviewMode={isPreviewMode}
+          />
+        );
+      case 'experience':
+        return (
+          <ExperienceSection
+            data={portfolioData.experience}
+            isPreviewMode={isPreviewMode}
+          />
+        );
+      case 'skills':
+        return (
+          <SkillsSection
+            data={portfolioData.skills}
+            isPreviewMode={isPreviewMode}
+          />
+        );
+      case 'contact':
+        return (
+          <ContactSection
+            data={portfolioData.contact}
             isPreviewMode={isPreviewMode}
           />
         );

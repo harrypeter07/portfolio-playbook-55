@@ -46,6 +46,8 @@ export interface PortfolioData {
     role: string;
     period: string;
     description: string;
+    location?: string;
+    type?: string;
   }>;
   skills: Array<{
     name: string;
@@ -55,6 +57,7 @@ export interface PortfolioData {
   contact: {
     email: string;
     phone?: string;
+    location?: string;
     social: Array<{
       platform: string;
       url: string;
@@ -96,28 +99,54 @@ const PortfolioBuilder = () => {
         company: "Tech Corp",
         role: "Senior Frontend Developer",
         period: "2022 - Present",
-        description: "Led frontend development for multiple high-traffic applications serving 1M+ users."
+        description: "Led frontend development for multiple high-traffic applications serving 1M+ users. Implemented modern React patterns, optimized performance, and mentored junior developers.",
+        location: "San Francisco, CA",
+        type: "Full-time"
       },
       {
         id: "2",
         company: "StartupXYZ",
         role: "Full Stack Developer",
         period: "2020 - 2022",
-        description: "Built and maintained full-stack applications using React, Node.js, and PostgreSQL."
+        description: "Built and maintained full-stack applications using React, Node.js, and PostgreSQL. Collaborated with cross-functional teams to deliver scalable solutions.",
+        location: "Remote",
+        type: "Full-time"
+      },
+      {
+        id: "3",
+        company: "Digital Agency",
+        role: "Frontend Developer",
+        period: "2019 - 2020",
+        description: "Developed responsive websites and web applications for various clients. Worked with modern JavaScript frameworks and CSS preprocessors.",
+        location: "New York, NY",
+        type: "Full-time"
       }
     ],
     skills: [
       { name: "React", level: 90, category: "Frontend" },
       { name: "TypeScript", level: 85, category: "Frontend" },
+      { name: "JavaScript", level: 95, category: "Frontend" },
+      { name: "HTML/CSS", level: 90, category: "Frontend" },
+      { name: "Tailwind CSS", level: 85, category: "Frontend" },
       { name: "Node.js", level: 80, category: "Backend" },
-      { name: "Python", level: 75, category: "Backend" }
+      { name: "Python", level: 75, category: "Backend" },
+      { name: "Express.js", level: 80, category: "Backend" },
+      { name: "PostgreSQL", level: 70, category: "Database" },
+      { name: "MongoDB", level: 75, category: "Database" },
+      { name: "Git", level: 85, category: "Tools" },
+      { name: "Docker", level: 70, category: "DevOps" },
+      { name: "AWS", level: 65, category: "DevOps" },
+      { name: "Figma", level: 80, category: "Design" }
     ],
     contact: {
       email: "john.doe@email.com",
       phone: "+1 (555) 123-4567",
+      location: "San Francisco, CA",
       social: [
-        { platform: "GitHub", url: "github.com/johndoe" },
-        { platform: "LinkedIn", url: "linkedin.com/in/johndoe" }
+        { platform: "GitHub", url: "https://github.com/johndoe" },
+        { platform: "LinkedIn", url: "https://linkedin.com/in/johndoe" },
+        { platform: "Twitter", url: "https://twitter.com/johndoe" },
+        { platform: "Website", url: "https://johndoe.dev" }
       ]
     }
   });
