@@ -42,11 +42,14 @@ export const PortfolioCanvas = ({
     } else if (ctxActiveSection === 'projects') {
       setTotalPages(portfolioData.projects.length);
       setCurrentPage(1);
+    } else if (ctxActiveSection === 'experience') {
+      setTotalPages(portfolioData.experience.length);
+      setCurrentPage(1);
     } else {
       setTotalPages(1);
       setCurrentPage(1);
     }
-  }, [ctxActiveSection, portfolioData.projects.length, setTotalPages, setCurrentPage, setTextStyle]);
+  }, [ctxActiveSection, portfolioData.projects.length, portfolioData.experience.length, setTotalPages, setCurrentPage, setTextStyle]);
   const renderSection = () => {
     // Show content based on active section and current page
     switch (ctxActiveSection) {
@@ -68,9 +71,12 @@ export const PortfolioCanvas = ({
           />
         );
       case 'experience':
+        // For experience, show the specific experience for the current page
+        const experienceIndex = (ctxPage || 1) - 1;
+        const currentExperience = portfolioData.experience[experienceIndex];
         return (
           <ExperienceSection
-            data={portfolioData.experience}
+            data={currentExperience ? [currentExperience] : []}
             isPreviewMode={isPreviewMode}
           />
         );
