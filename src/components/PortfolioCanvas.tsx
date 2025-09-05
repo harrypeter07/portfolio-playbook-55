@@ -9,14 +9,34 @@ interface PortfolioCanvasProps {
   activeSection: PortfolioSection;
   portfolioData: PortfolioData;
   isPreviewMode: boolean;
+  currentPage?: 'P1' | 'P2';
 }
 
 export const PortfolioCanvas = ({
   activeSection,
   portfolioData,
-  isPreviewMode
+  isPreviewMode,
+  currentPage = 'P1'
 }: PortfolioCanvasProps) => {
   const renderSection = () => {
+    // Show different content based on current page
+    if (currentPage === 'P1') {
+      return (
+        <AboutSection
+          data={portfolioData.about}
+          isPreviewMode={isPreviewMode}
+        />
+      );
+    } else if (currentPage === 'P2') {
+      return (
+        <ProjectsSection
+          data={portfolioData.projects}
+          isPreviewMode={isPreviewMode}
+        />
+      );
+    }
+
+    // Fallback to original section-based rendering
     switch (activeSection) {
       case 'about':
         return (

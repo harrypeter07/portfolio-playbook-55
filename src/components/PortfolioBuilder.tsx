@@ -9,6 +9,17 @@ import { ProjectPages } from "@/components/ProjectPages";
 import { ThemeProvider, DoodleOverlay } from "@/components/AdaptiveTheme";
 import { MagicAnimate } from "@/components/MagicAnimate";
 import { EasterEggManager } from "@/components/EasterEggs";
+import { Button } from "@/components/ui/button";
+import { 
+  Sparkles, 
+  FileText, 
+  Play, 
+  Clock, 
+  Grid, 
+  Maximize2, 
+  HelpCircle, 
+  Plus 
+} from "lucide-react";
 
 export type PortfolioSection = 'about' | 'projects' | 'experience' | 'skills' | 'contact' | 'canvas' | 'whiteboard' | 'project-pages';
 
@@ -50,16 +61,200 @@ export interface PortfolioData {
 }
 
 const PortfolioBuilder = () => {
+  const [activeSection, setActiveSection] = useState<PortfolioSection>('about');
   const [currentPage, setCurrentPage] = useState<'P1' | 'P2'>('P1');
+  const [portfolioData, setPortfolioData] = useState<PortfolioData>({
+    about: {
+      name: "John Doe",
+      title: "Full Stack Developer & UI/UX Designer",
+      description: "Passionate full-stack developer with 5+ years of experience creating beautiful, functional web applications. I specialize in React, Node.js, and modern web technologies.",
+    },
+    projects: [
+      {
+        id: "1",
+        title: "E-Commerce Platform",
+        description: "Full-stack e-commerce solution with React, Node.js, and Stripe integration",
+        tech: ["React", "Node.js", "PostgreSQL", "Stripe"],
+      },
+      {
+        id: "2",
+        title: "Task Management App",
+        description: "Collaborative task management tool with real-time updates",
+        tech: ["React", "Socket.io", "MongoDB", "Express"],
+      },
+      {
+        id: "3",
+        title: "Portfolio Website",
+        description: "Personal portfolio website with custom animations and responsive design",
+        tech: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"],
+      }
+    ],
+    experience: [
+      {
+        id: "1",
+        company: "Tech Corp",
+        role: "Senior Frontend Developer",
+        period: "2022 - Present",
+        description: "Led frontend development for multiple high-traffic applications serving 1M+ users."
+      },
+      {
+        id: "2",
+        company: "StartupXYZ",
+        role: "Full Stack Developer",
+        period: "2020 - 2022",
+        description: "Built and maintained full-stack applications using React, Node.js, and PostgreSQL."
+      }
+    ],
+    skills: [
+      { name: "React", level: 90, category: "Frontend" },
+      { name: "TypeScript", level: 85, category: "Frontend" },
+      { name: "Node.js", level: 80, category: "Backend" },
+      { name: "Python", level: 75, category: "Backend" }
+    ],
+    contact: {
+      email: "john.doe@email.com",
+      phone: "+1 (555) 123-4567",
+      social: [
+        { platform: "GitHub", url: "github.com/johndoe" },
+        { platform: "LinkedIn", url: "linkedin.com/in/johndoe" }
+      ]
+    }
+  });
+
+  const [isPreviewMode, setIsPreviewMode] = useState(false);
+  const [canvasItems, setCanvasItems] = useState<DraggableItem[]>([]);
+  const [whiteboardElements, setWhiteboardElements] = useState<any[]>([]);
+  const [currentProject, setCurrentProject] = useState<any>(null);
 
   return (
     <ThemeProvider>
-      <CanvaInterface 
-        currentPage={currentPage}
-        onPageChange={setCurrentPage}
-      >
-        <PortfolioContent page={currentPage} />
-      </CanvaInterface>
+      <div className="min-h-screen relative bg-gray-100">
+        <TopBar 
+          isPreviewMode={isPreviewMode}
+          onTogglePreview={() => setIsPreviewMode(!isPreviewMode)}
+        />
+        
+        {/* Canva-style formatting toolbar */}
+        {!isPreviewMode && <CanvaToolbar />}
+        
+        <div className={`flex ${isPreviewMode ? 'h-[calc(100vh-6.5rem)]' : 'h-[calc(100vh-10.5rem)]'}`}>
+          {/* Left Sidebar - Portfolio Sections */}
+          {!isPreviewMode && (
+            <EnhancedSidebar
+              activeSection={activeSection}
+              onSectionChange={(section: string) => setActiveSection(section as PortfolioSection)}
+              isPreviewMode={isPreviewMode}
+              onTogglePreview={() => setIsPreviewMode(!isPreviewMode)}
+            />
+          )}
+
+          {/* Main Canvas - Full width when in preview mode */}
+          <div className="flex-1">
+            {activeSection === 'canvas' ? (
+              <DragDropCanvas
+                items={canvasItems}
+                onItemsChange={setCanvasItems}
+                isPreviewMode={isPreviewMode}
+              />
+            ) : activeSection === 'whiteboard' ? (
+              <WhiteboardCanvas
+                elements={whiteboardElements}
+                onElementsChange={setWhiteboardElements}
+                isPreviewMode={isPreviewMode}
+              />
+            ) : activeSection === 'project-pages' && currentProject ? (
+              <ProjectPages
+                project={currentProject}
+                onProjectUpdate={setCurrentProject}
+                isPreviewMode={isPreviewMode}
+              />
+            ) : (
+              <PortfolioCanvas
+                activeSection={activeSection}
+                portfolioData={portfolioData}
+                isPreviewMode={isPreviewMode}
+                currentPage={currentPage}
+              />
+            )}
+          </div>
+        </div>
+
+        {/* Bottom Bar - Canva Style */}
+        <div className="h-16 bg-white border-t border-gray-200 flex items-center justify-between px-4">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+              <Sparkles className="w-4 h-4" />
+            </Button>
+            
+            <Button variant="ghost" size="sm" className="h-8 px-3 flex items-center gap-1">
+              <FileText className="w-4 h-4" />
+              Notes
+            </Button>
+            
+            <Button variant="ghost" size="sm" className="h-8 px-3 flex items-center gap-1">
+              <Play className="w-4 h-4" />
+              Duration
+            </Button>
+            
+            <Button variant="ghost" size="sm" className="h-8 px-3 flex items-center gap-1">
+              <Clock className="w-4 h-4" />
+              Timer
+            </Button>
+            
+            <div className="w-32 h-2 bg-gray-200 rounded-full">
+              <div className="w-1/2 h-full bg-purple-500 rounded-full"></div>
+            </div>
+            
+            <span className="text-sm text-gray-600">48%</span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="sm" className="h-8 px-3">
+              Pages
+            </Button>
+            
+            <div className="flex items-center gap-1">
+              <Button 
+                variant={currentPage === 'P1' ? 'default' : 'outline'}
+                size="sm" 
+                className="h-8 px-3 flex items-center gap-1"
+                onClick={() => setCurrentPage('P1')}
+              >
+                <FileText className="w-4 h-4" />
+                P1
+                <span className="text-xs">1</span>
+              </Button>
+              
+              <Button 
+                variant={currentPage === 'P2' ? 'default' : 'outline'}
+                size="sm" 
+                className="h-8 px-3 flex items-center gap-1"
+                onClick={() => setCurrentPage('P2')}
+              >
+                <FileText className="w-4 h-4" />
+                P2
+                <span className="text-xs">2</span>
+              </Button>
+              
+              <Button variant="outline" size="sm" className="h-8 w-8 p-0">
+                <Plus className="w-4 h-4" />
+              </Button>
+              
+              <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                <Grid className="w-4 h-4" />
+              </Button>
+            </div>
+            
+            <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+              <Maximize2 className="w-4 h-4" />
+            </Button>
+            
+            <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+              <HelpCircle className="w-4 h-4" />
+            </Button>
+          </div>
+        </div>
+      </div>
     </ThemeProvider>
   );
 };

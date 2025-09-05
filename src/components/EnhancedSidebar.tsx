@@ -29,7 +29,14 @@ import {
   Download,
   Share,
   Eye,
-  EyeOff
+  EyeOff,
+  Square,
+  Circle,
+  Triangle,
+  Crown,
+  Cloud,
+  Edit3,
+  Folder
 } from 'lucide-react';
 // import { motion, AnimatePresence } from 'framer-motion';
 
@@ -288,148 +295,56 @@ export const EnhancedSidebar: React.FC<EnhancedSidebarProps> = ({
   };
 
   return (
-    <aside className={`w-80 bg-white border-r border-gray-200 h-full overflow-y-auto relative ${className}`}>
-      {/* Header */}
-      <div className="p-4 border-b border-gray-100">
-        <div className="flex items-center gap-2 mb-4">
-          <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center">
-            <Heart className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <h2 className="font-bold text-lg text-gray-900">CanvaFolio</h2>
-            <p className="text-xs text-gray-500">Portfolio Builder</p>
-          </div>
-        </div>
-
-        {/* Search */}
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-          <Input 
-            placeholder="Search sections..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 h-9 text-sm border-gray-200 focus:border-purple-300"
-          />
-        </div>
-      </div>
-
-      {/* Categories */}
-      <div className="p-4 space-y-2">
-        {filteredCategories.map((category) => (
-          <div key={category.id} className="relative">
-            <Button
-              variant="ghost"
-              onClick={() => toggleCategory(category.id)}
-              onMouseEnter={() => setHoveredCategory(category.id)}
-              onMouseLeave={() => setHoveredCategory(null)}
-              className={`
-                w-full justify-start h-auto p-3 rounded-lg text-left transition-all
-                hover:bg-gray-50
-                ${expandedCategories.has(category.id) ? 'bg-purple-50 border border-purple-200' : ''}
-              `}
-            >
-              <div className="flex items-center gap-3 w-full">
-                <div className={`w-6 h-6 rounded flex items-center justify-center ${
-                  expandedCategories.has(category.id) ? 'bg-purple-100' : 'bg-gray-100'
-                }`}>
-                  {category.icon}
-                </div>
-                
-                <div className="flex-1 min-w-0">
-                  <div className="font-medium text-sm text-gray-900">{category.label}</div>
-                  <div className="text-xs text-gray-500">{category.description}</div>
-                </div>
-
-                <div className="flex items-center gap-1">
-                  {category.items.length > 0 && (
-                    <Badge variant="secondary" className="text-xs">
-                      {category.items.length}
-                    </Badge>
-                  )}
-                  {expandedCategories.has(category.id) ? (
-                    <ChevronDown className="w-4 h-4 text-muted-foreground" />
-                  ) : (
-                    <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                  )}
-                </div>
-              </div>
-            </Button>
-
-            {/* Category Preview */}
-            {renderCategoryPreview(category)}
-
-            {/* Expanded Items */}
-            {expandedCategories.has(category.id) && (
-              <div className="overflow-hidden">
-                <div className="ml-6 mt-2 space-y-1">
-                  {category.items.map((item) => (
-                    <Button
-                      key={item.id}
-                      variant="ghost"
-                      onClick={item.onClick}
-                      className={`
-                        w-full justify-start h-8 px-2 rounded text-left transition-colors
-                        ${activeSection === item.id 
-                          ? 'bg-purple-100 text-purple-700 border border-purple-200' 
-                          : 'hover:bg-gray-50 text-gray-700'
-                        }
-                      `}
-                    >
-                      <div className="flex items-center gap-2 w-full">
-                        {item.icon && (
-                          <div className={`w-3 h-3 ${
-                            activeSection === item.id ? 'text-purple-600' : 'text-gray-500'
-                          }`}>
-                            {item.icon}
-                          </div>
-                        )}
-                        <span className="text-xs font-medium flex-1 truncate">
-                          {item.label}
-                        </span>
-                        {item.badge && (
-                          <Badge 
-                            variant={activeSection === item.id ? "default" : "secondary"} 
-                            className="text-xs h-4 px-1"
-                          >
-                            {item.badge}
-                          </Badge>
-                        )}
-                      </div>
-                    </Button>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-
-      {/* Quick Actions */}
-      <div className="p-4 border-t border-gray-100 mt-auto">
-        <div className="space-y-2">
-          <Button 
-            className="w-full bg-gradient-primary hover:bg-gradient-primary/90 text-white h-9 text-sm"
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            Add New Section
-          </Button>
-          
-          <div className="grid grid-cols-2 gap-2">
-            <Button variant="outline" size="sm" className="h-8 text-xs">
-              <Download className="w-3 h-3 mr-1" />
-              Export
-            </Button>
-            <Button variant="outline" size="sm" className="h-8 text-xs">
-              <Share className="w-3 h-3 mr-1" />
-              Share
-            </Button>
-          </div>
-        </div>
-      </div>
-
+    <aside className={`w-16 bg-white border-r border-gray-200 h-full overflow-y-auto relative flex flex-col items-center py-4 gap-4 ${className}`}>
+      {/* Design Elements - Canva Style */}
+      <Button variant="ghost" size="sm" className="h-12 w-12 flex flex-col items-center gap-1">
+        <Square className="w-5 h-5" />
+        <Circle className="w-5 h-5" />
+        <span className="text-xs">Design</span>
+      </Button>
+      
+      <Button variant="ghost" size="sm" className="h-12 w-12 flex flex-col items-center gap-1">
+        <Square className="w-5 h-5" />
+        <Triangle className="w-5 h-5" />
+        <Circle className="w-5 h-5" />
+        <span className="text-xs">Elements</span>
+      </Button>
+      
+      <Button variant="ghost" size="sm" className="h-12 w-12 flex flex-col items-center gap-1">
+        <Type className="w-6 h-6" />
+        <span className="text-xs">Text</span>
+      </Button>
+      
+      <Button variant="ghost" size="sm" className="h-12 w-12 flex flex-col items-center gap-1">
+        <Crown className="w-5 h-5" />
+        <span className="text-xs">Brand</span>
+      </Button>
+      
+      <Button variant="ghost" size="sm" className="h-12 w-12 flex flex-col items-center gap-1">
+        <Cloud className="w-5 h-5" />
+        <span className="text-xs">Uploads</span>
+      </Button>
+      
+      <Button variant="ghost" size="sm" className="h-12 w-12 flex flex-col items-center gap-1">
+        <Edit3 className="w-5 h-5" />
+        <span className="text-xs">Tools</span>
+      </Button>
+      
+      <Button variant="ghost" size="sm" className="h-12 w-12 flex flex-col items-center gap-1">
+        <Folder className="w-5 h-5" />
+        <span className="text-xs">Projects</span>
+      </Button>
+      
+      <Button variant="ghost" size="sm" className="h-12 w-12 flex flex-col items-center gap-1">
+        <Grid3X3 className="w-5 h-5" />
+        <span className="text-xs">Apps</span>
+      </Button>
+      
       {/* Magic Sparkle Effect */}
-      <div className="absolute top-4 right-4 opacity-20">
-        <Sparkles className="w-4 h-4 text-purple-500 animate-pulse" />
+      <div className="mt-auto">
+        <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+          <Sparkles className="w-4 h-4" />
+        </Button>
       </div>
     </aside>
   );
