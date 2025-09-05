@@ -130,13 +130,37 @@ export const CanvaToolbar = () => {
 
       {/* Text Formatting */}
       <div className="flex items-center gap-1">
-        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-gray-100">
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          className="h-8 w-8 p-0 hover:bg-gray-100"
+          onClick={() => {
+            // Toggle bold - you can implement this with a state
+            console.log('Bold toggled');
+          }}
+        >
           <Bold className="w-4 h-4" />
         </Button>
-        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-gray-100">
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          className="h-8 w-8 p-0 hover:bg-gray-100"
+          onClick={() => {
+            // Toggle italic
+            console.log('Italic toggled');
+          }}
+        >
           <Italic className="w-4 h-4" />
         </Button>
-        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-gray-100">
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          className="h-8 w-8 p-0 hover:bg-gray-100"
+          onClick={() => {
+            // Toggle underline
+            console.log('Underline toggled');
+          }}
+        >
           <Underline className="w-4 h-4" />
         </Button>
       </div>
@@ -201,16 +225,36 @@ export const CanvaToolbar = () => {
 
       {/* Text Alignment */}
       <div className="flex items-center gap-1">
-        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-gray-100">
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          className="h-8 w-8 p-0 hover:bg-gray-100"
+          onClick={() => setTextStyle({ align: 'left' })}
+        >
           <AlignLeft className="w-4 h-4" />
         </Button>
-        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-gray-100">
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          className="h-8 w-8 p-0 hover:bg-gray-100"
+          onClick={() => setTextStyle({ align: 'center' })}
+        >
           <AlignCenter className="w-4 h-4" />
         </Button>
-        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-gray-100">
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          className="h-8 w-8 p-0 hover:bg-gray-100"
+          onClick={() => setTextStyle({ align: 'right' })}
+        >
           <AlignRight className="w-4 h-4" />
         </Button>
-        <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-gray-100">
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          className="h-8 w-8 p-0 hover:bg-gray-100"
+          onClick={() => setTextStyle({ align: 'justify' })}
+        >
           <AlignJustify className="w-4 h-4" />
         </Button>
       </div>

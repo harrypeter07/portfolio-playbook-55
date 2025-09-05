@@ -46,15 +46,30 @@ export const TopBar = ({ isPreviewMode, onTogglePreview }: TopBarProps) => {
           </div>
 
           <div className="flex items-center gap-1">
-            <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="h-8 w-8 p-0"
+              onClick={() => console.log('Undo action')}
+            >
               <Undo className="w-4 h-4" />
             </Button>
-            <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="h-8 w-8 p-0"
+              onClick={() => console.log('Redo action')}
+            >
               <Redo className="w-4 h-4" />
             </Button>
           </div>
 
-          <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="h-8 w-8 p-0"
+            onClick={() => console.log('Cloud sync')}
+          >
             <Cloud className="w-4 h-4" />
           </Button>
         </div>
@@ -66,7 +81,12 @@ export const TopBar = ({ isPreviewMode, onTogglePreview }: TopBarProps) => {
 
         {/* Right side - Canva style */}
         <div className="flex items-center gap-2">
-          <Button variant="ghost" size="sm" className="h-8 px-3 flex items-center gap-1 text-purple-600">
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="h-8 px-3 flex items-center gap-1 text-purple-600"
+            onClick={() => console.log('Try Pro')}
+          >
             Try Pro for 30 days
             <Crown className="w-3 h-3" />
           </Button>
@@ -90,12 +110,22 @@ export const TopBar = ({ isPreviewMode, onTogglePreview }: TopBarProps) => {
             <MessageCircle className="w-4 h-4" />
           </Button>
           
-          <Button variant="ghost" size="sm" className="h-8 px-3 flex items-center gap-1">
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="h-8 px-3 flex items-center gap-1"
+            onClick={() => console.log('Present mode')}
+          >
             <Presentation className="w-4 h-4" />
             Present
           </Button>
           
-          <Button variant="ghost" size="sm" className="h-8 px-3 flex items-center gap-1">
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="h-8 px-3 flex items-center gap-1"
+            onClick={() => console.log('Share project')}
+          >
             <Upload className="w-4 h-4" />
             Share
           </Button>

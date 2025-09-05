@@ -62,7 +62,7 @@ export const PortfolioSidebar = ({
   portfolioData,
 }: PortfolioSidebarProps) => {
   return (
-    <aside className="w-80 bg-white border-r border-gray-200 h-full overflow-y-auto">
+    <aside className="w-full bg-white border-r border-gray-200 h-full overflow-y-auto">
       {/* Search */}
       <div className="p-4 border-b border-gray-100">
         <div className="relative">
@@ -81,6 +81,7 @@ export const PortfolioSidebar = ({
           <Button 
             variant="ghost" 
             className="h-12 flex flex-col items-center gap-1 hover:bg-gray-50 text-gray-600"
+            onClick={() => console.log('Add text element')}
           >
             <Type className="w-5 h-5" />
             <span className="text-xs">Text</span>
@@ -88,6 +89,7 @@ export const PortfolioSidebar = ({
           <Button 
             variant="ghost" 
             className="h-12 flex flex-col items-center gap-1 hover:bg-gray-50 text-gray-600"
+            onClick={() => console.log('Add image element')}
           >
             <ImageIcon className="w-5 h-5" />
             <span className="text-xs">Image</span>
@@ -95,6 +97,7 @@ export const PortfolioSidebar = ({
           <Button 
             variant="ghost" 
             className="h-12 flex flex-col items-center gap-1 hover:bg-gray-50 text-gray-600"
+            onClick={() => console.log('Add shape element')}
           >
             <Shapes className="w-5 h-5" />
             <span className="text-xs">Shapes</span>
@@ -102,6 +105,7 @@ export const PortfolioSidebar = ({
           <Button 
             variant="ghost" 
             className="h-12 flex flex-col items-center gap-1 hover:bg-gray-50 text-gray-600"
+            onClick={() => console.log('Add layout element')}
           >
             <Grid3X3 className="w-5 h-5" />
             <span className="text-xs">Layout</span>
@@ -152,6 +156,7 @@ export const PortfolioSidebar = ({
       <div className="p-4 border-t border-gray-100 mt-4">
         <Button 
           className="w-full bg-purple-600 hover:bg-purple-700 text-white h-9 text-sm"
+          onClick={() => console.log('Add new section')}
         >
           <Plus className="w-4 h-4 mr-2" />
           Add New Section

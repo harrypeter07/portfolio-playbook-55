@@ -158,8 +158,12 @@ const PortfolioBuilder = () => {
         {!isPreviewMode && <CanvaToolbar />}
         
         <div className={`flex ${isPreviewMode ? 'h-[calc(100vh-6.5rem)]' : 'h-[calc(100vh-10.5rem)]'}`}>
-          {/* Left Sidebar - Portfolio Sections */}
-          {!isPreviewMode && <EditorSync />}
+          {/* Left Sidebar - Portfolio Sections - Fixed width, no collapsing */}
+          {!isPreviewMode && (
+            <div className="w-80 flex-shrink-0">
+              <EditorSync />
+            </div>
+          )}
 
           {/* Main Canvas - Full width when in preview mode */}
           <div className="flex-1">
