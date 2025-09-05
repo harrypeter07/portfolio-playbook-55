@@ -49,6 +49,8 @@ export const CanvaPage = ({ children, activeSection }: CanvaPageProps) => {
         }}
       >
         <div className="flex items-center justify-center min-h-full relative">
+          {/* Center the page within a max-layout width like Canva */}
+          <div className="absolute inset-0 pointer-events-none" />
           {/* Centered P1/P2 Tabs Overlay */}
           <div className="absolute -bottom-6 flex items-center gap-2">
             <button
@@ -64,20 +66,24 @@ export const CanvaPage = ({ children, activeSection }: CanvaPageProps) => {
               P2
             </button>
           </div>
-          <Card 
-            className="bg-white shadow-2xl border-2"
-            style={{
-              width: pageSize.width,
-              height: pageSize.height,
-              transform: `scale(${zoom})`,
-              transformOrigin: 'center center'
-            }}
+          <div
+            className="pointer-events-auto"
+            style={{ width: pageSize.width * zoom, height: pageSize.height * zoom }}
           >
-            <div className="w-full h-full overflow-auto"
+            <Card 
+              className="bg-white shadow-2xl border-2"
               style={{
-                boxShadow: '0 0 0 2px #a855f7 inset',
+                width: pageSize.width,
+                height: pageSize.height,
+                transform: `scale(${zoom})`,
+                transformOrigin: 'top left'
               }}
             >
+              <div className="w-full h-full overflow-auto"
+                style={{
+                  boxShadow: '0 0 0 2px #a855f7 inset',
+                }}
+              >
               {children || (
                 <div className="flex items-center justify-center h-full text-center p-8">
                   {!activeSection ? (
@@ -106,8 +112,9 @@ export const CanvaPage = ({ children, activeSection }: CanvaPageProps) => {
                   )}
                 </div>
               )}
-            </div>
-          </Card>
+              </div>
+            </Card>
+          </div>
         </div>
       </div>
     </div>

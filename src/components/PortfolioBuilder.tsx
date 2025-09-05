@@ -21,7 +21,7 @@ import {
   HelpCircle, 
   Plus 
 } from "lucide-react";
-import { EditorProvider } from "@/components/editor/EditorContext";
+import { EditorProvider, useEditor } from "@/components/editor/EditorContext";
 
 export type PortfolioSection = 'about' | 'projects' | 'experience' | 'skills' | 'contact' | 'canvas' | 'whiteboard' | 'project-pages';
 
@@ -128,6 +128,22 @@ const PortfolioBuilder = () => {
   const [whiteboardElements, setWhiteboardElements] = useState<any[]>([]);
   const [currentProject, setCurrentProject] = useState<any>(null);
 
+  // Access editor state to sync P1/P2 with sidebar selection
+  const EditorSync: React.FC = () => {
+    const { setCurrentPage } = useEditor();
+    return (
+      <PortfolioSidebar
+        activeSection={activeSection}
+        onSectionChange={(section: PortfolioSection) => {
+          setActiveSection(section);
+          if (section === 'about') setCurrentPage('P1');
+          if (section === 'projects') setCurrentPage('P2');
+        }}
+        portfolioData={portfolioData}
+      />
+    );
+  };
+
   return (
     <ThemeProvider>
       <EditorProvider>
@@ -142,13 +158,7 @@ const PortfolioBuilder = () => {
         
         <div className={`flex ${isPreviewMode ? 'h-[calc(100vh-6.5rem)]' : 'h-[calc(100vh-10.5rem)]'}`}>
           {/* Left Sidebar - Portfolio Sections */}
-          {!isPreviewMode && (
-            <PortfolioSidebar
-              activeSection={activeSection}
-              onSectionChange={(section: PortfolioSection) => setActiveSection(section)}
-              portfolioData={portfolioData}
-            />
-          )}
+          {!isPreviewMode && <EditorSync />}
 
           {/* Main Canvas - Full width when in preview mode */}
           <div className="flex-1">
