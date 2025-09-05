@@ -4,6 +4,7 @@ import { ProjectsSection } from "./sections/ProjectsSection";
 import { CanvaPage } from "./CanvaPage";
 import { Card } from "@/components/ui/card";
 import { Construction } from "lucide-react";
+import { useEditor } from "@/components/editor/EditorContext";
 
 interface PortfolioCanvasProps {
   activeSection: PortfolioSection;
@@ -18,16 +19,18 @@ export const PortfolioCanvas = ({
   isPreviewMode,
   currentPage = 'P1'
 }: PortfolioCanvasProps) => {
+  const { currentPage: ctxPage } = useEditor();
+  const page = ctxPage || currentPage;
   const renderSection = () => {
     // Show different content based on current page
-    if (currentPage === 'P1') {
+    if (page === 'P1') {
       return (
         <AboutSection
           data={portfolioData.about}
           isPreviewMode={isPreviewMode}
         />
       );
-    } else if (currentPage === 'P2') {
+    } else if (page === 'P2') {
       return (
         <ProjectsSection
           data={portfolioData.projects}

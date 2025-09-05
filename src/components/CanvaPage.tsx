@@ -1,23 +1,9 @@
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
-import { Maximize2, Monitor, Smartphone, FileText, Square } from "lucide-react";
+import { FileText } from "lucide-react";
+import { useEditor } from "@/components/editor/EditorContext";
 
-export type PageSize = {
-  name: string;
-  width: number;
-  height: number;
-  icon: React.ReactNode;
-};
-
-const PAGE_SIZES: PageSize[] = [
-  { name: "Custom", width: 800, height: 1000, icon: <Square className="w-4 h-4" /> },
-  { name: "Presentation (16:9)", width: 1920, height: 1080, icon: <Monitor className="w-4 h-4" /> },
-  { name: "Letter (8.5×11)", width: 816, height: 1056, icon: <FileText className="w-4 h-4" /> },
-  { name: "Mobile (9:16)", width: 405, height: 720, icon: <Smartphone className="w-4 h-4" /> },
-  { name: "Square", width: 800, height: 800, icon: <Square className="w-4 h-4" /> }
-];
+// Size selection now comes from TopBar via EditorContext
 
 interface CanvaPageProps {
   children?: React.ReactNode;
@@ -25,76 +11,65 @@ interface CanvaPageProps {
 }
 
 export const CanvaPage = ({ children, activeSection }: CanvaPageProps) => {
-  const [selectedSize, setSelectedSize] = useState<PageSize>(PAGE_SIZES[0]);
-  const [scale, setScale] = useState(0.6);
-
-  const handleSizeChange = (sizeName: string) => {
-    const size = PAGE_SIZES.find(s => s.name === sizeName);
-    if (size) setSelectedSize(size);
-  };
+  const { pageSize, zoom, setZoom, currentPage, setCurrentPage } = useEditor();
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const pinchRef = useRef<{ lastDistance: number | null }>({ lastDistance: null });
 
   return (
     <div className="flex flex-col h-full">
-      {/* Page Controls */}
-      <div className="flex items-center justify-between p-4 border-b border-border bg-card">
-        <div className="flex items-center gap-4">
-          <Select value={selectedSize.name} onValueChange={handleSizeChange}>
-            <SelectTrigger className="w-64">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {PAGE_SIZES.map((size) => (
-                <SelectItem key={size.name} value={size.name}>
-                  <div className="flex items-center gap-2">
-                    {size.icon}
-                    <span>{size.name}</span>
-                    <span className="text-xs text-muted-foreground ml-2">
-                      {size.width} × {size.height}
-                    </span>
-                  </div>
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-
-          <div className="flex items-center gap-2">
-            <Button 
-              variant="outline" 
-              size="sm"
-              onClick={() => setScale(Math.max(0.2, scale - 0.1))}
-            >
-              -
-            </Button>
-            <span className="text-sm font-medium min-w-16 text-center">
-              {Math.round(scale * 100)}%
-            </span>
-            <Button 
-              variant="outline" 
-              size="sm"
-              onClick={() => setScale(Math.min(2, scale + 0.1))}
-            >
-              +
-            </Button>
-            <Button variant="outline" size="sm" onClick={() => setScale(1)}>
-              <Maximize2 className="w-4 h-4" />
-            </Button>
-          </div>
-        </div>
-
-        <div className="text-sm text-muted-foreground">
-          {selectedSize.name} • {selectedSize.width} × {selectedSize.height}px
-        </div>
-      </div>
-
       {/* Canvas Area */}
-      <div className="flex-1 bg-gray-100 p-8 overflow-auto">
-        <div className="flex items-center justify-center min-h-full">
+      <div
+        ref={containerRef}
+        className="flex-1 bg-gray-100 p-8 overflow-auto select-none"
+        onWheel={(e) => {
+          if (e.ctrlKey) {
+            e.preventDefault();
+            const delta = e.deltaY > 0 ? -0.05 : 0.05;
+            setZoom(+(Math.max(0.25, Math.min(2, zoom + delta))).toFixed(2));
+          }
+        }}
+        onTouchMove={(e) => {
+          if (e.touches.length === 2) {
+            const [a, b] = e.touches;
+            const dx = a.clientX - b.clientX;
+            const dy = a.clientY - b.clientY;
+            const dist = Math.hypot(dx, dy);
+            if (pinchRef.current.lastDistance != null) {
+              const diff = dist - pinchRef.current.lastDistance;
+              if (Math.abs(diff) > 2) {
+                const delta = diff > 0 ? 0.03 : -0.03;
+                setZoom(+(Math.max(0.25, Math.min(2, zoom + delta))).toFixed(2));
+              }
+            }
+            pinchRef.current.lastDistance = dist;
+          }
+        }}
+        onTouchEnd={() => {
+          pinchRef.current.lastDistance = null;
+        }}
+      >
+        <div className="flex items-center justify-center min-h-full relative">
+          {/* Centered P1/P2 Tabs Overlay */}
+          <div className="absolute -bottom-6 flex items-center gap-2">
+            <button
+              className={`px-4 py-2 rounded-md border text-sm ${currentPage === 'P1' ? 'bg-white border-gray-300 shadow' : 'bg-gray-100 border-transparent'}`}
+              onClick={() => setCurrentPage('P1')}
+            >
+              P1
+            </button>
+            <button
+              className={`px-4 py-2 rounded-md border text-sm ${currentPage === 'P2' ? 'bg-white border-gray-300 shadow' : 'bg-gray-100 border-transparent'}`}
+              onClick={() => setCurrentPage('P2')}
+            >
+              P2
+            </button>
+          </div>
           <Card 
             className="bg-white shadow-2xl border-2 border-gray-200"
             style={{
-              width: selectedSize.width * scale,
-              height: selectedSize.height * scale,
-              transform: `scale(${scale})`,
+              width: pageSize.width,
+              height: pageSize.height,
+              transform: `scale(${zoom})`,
               transformOrigin: 'center center'
             }}
           >

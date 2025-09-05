@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Eye, Download, Undo, Redo, Palette, Share, MoreHorizontal, Menu, FileText, Crown, Edit3, Cloud, BarChart3, MessageCircle, Presentation, Upload, Plus, RotateCcw, Ruler } from "lucide-react";
+import { PAGE_SIZES, useEditor } from "@/components/editor/EditorContext";
 
 interface TopBarProps {
   isPreviewMode: boolean;
@@ -7,6 +9,7 @@ interface TopBarProps {
 }
 
 export const TopBar = ({ isPreviewMode, onTogglePreview }: TopBarProps) => {
+  const { pageSize, setPageSizeByName, currentPage } = useEditor();
   return (
     <>
       {/* Main Top Bar */}
@@ -21,10 +24,21 @@ export const TopBar = ({ isPreviewMode, onTogglePreview }: TopBarProps) => {
             <Button variant="ghost" size="sm" className="h-8 px-2">
               File
             </Button>
-            <Button variant="ghost" size="sm" className="h-8 px-2 flex items-center gap-1">
-              Resize
-              <Crown className="w-3 h-3" />
-            </Button>
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-gray-500">Resize</span>
+              <Select value={pageSize.name} onValueChange={setPageSizeByName}>
+                <SelectTrigger className="h-8 w-56 text-sm">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {PAGE_SIZES.map(s => (
+                    <SelectItem key={s.name} value={s.name}>
+                      {s.name} — {s.width}×{s.height}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
             <Button variant="ghost" size="sm" className="h-8 px-2 flex items-center gap-1">
               <Edit3 className="w-3 h-3" />
               Editing
@@ -47,7 +61,7 @@ export const TopBar = ({ isPreviewMode, onTogglePreview }: TopBarProps) => {
 
         {/* Center - Project name */}
         <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-gray-700">P1</span>
+          <span className="text-sm font-medium text-gray-700">{currentPage}</span>
         </div>
 
         {/* Right side - Canva style */}

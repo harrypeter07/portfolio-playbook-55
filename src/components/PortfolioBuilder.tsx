@@ -21,6 +21,7 @@ import {
   HelpCircle, 
   Plus 
 } from "lucide-react";
+import { EditorProvider } from "@/components/editor/EditorContext";
 
 export type PortfolioSection = 'about' | 'projects' | 'experience' | 'skills' | 'contact' | 'canvas' | 'whiteboard' | 'project-pages';
 
@@ -129,6 +130,7 @@ const PortfolioBuilder = () => {
 
   return (
     <ThemeProvider>
+      <EditorProvider>
       <div className="min-h-screen relative bg-gray-100">
         <TopBar 
           isPreviewMode={isPreviewMode}
@@ -174,88 +176,12 @@ const PortfolioBuilder = () => {
                 activeSection={activeSection}
                 portfolioData={portfolioData}
                 isPreviewMode={isPreviewMode}
-                currentPage={currentPage}
               />
             )}
           </div>
         </div>
-
-        {/* Bottom Bar - Canva Style */}
-        <div className="h-16 bg-white border-t border-gray-200 flex items-center justify-between px-4">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-              <Sparkles className="w-4 h-4" />
-            </Button>
-            
-            <Button variant="ghost" size="sm" className="h-8 px-3 flex items-center gap-1">
-              <FileText className="w-4 h-4" />
-              Notes
-            </Button>
-            
-            <Button variant="ghost" size="sm" className="h-8 px-3 flex items-center gap-1">
-              <Play className="w-4 h-4" />
-              Duration
-            </Button>
-            
-            <Button variant="ghost" size="sm" className="h-8 px-3 flex items-center gap-1">
-              <Clock className="w-4 h-4" />
-              Timer
-            </Button>
-            
-            <div className="w-32 h-2 bg-gray-200 rounded-full">
-              <div className="w-1/2 h-full bg-purple-500 rounded-full"></div>
-            </div>
-            
-            <span className="text-sm text-gray-600">48%</span>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" size="sm" className="h-8 px-3">
-              Pages
-            </Button>
-            
-            <div className="flex items-center gap-1">
-              <Button 
-                variant={currentPage === 'P1' ? 'default' : 'outline'}
-                size="sm" 
-                className="h-8 px-3 flex items-center gap-1"
-                onClick={() => setCurrentPage('P1')}
-              >
-                <FileText className="w-4 h-4" />
-                P1
-                <span className="text-xs">1</span>
-              </Button>
-              
-              <Button 
-                variant={currentPage === 'P2' ? 'default' : 'outline'}
-                size="sm" 
-                className="h-8 px-3 flex items-center gap-1"
-                onClick={() => setCurrentPage('P2')}
-              >
-                <FileText className="w-4 h-4" />
-                P2
-                <span className="text-xs">2</span>
-              </Button>
-              
-              <Button variant="outline" size="sm" className="h-8 w-8 p-0">
-                <Plus className="w-4 h-4" />
-              </Button>
-              
-              <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                <Grid className="w-4 h-4" />
-              </Button>
-            </div>
-            
-            <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-              <Maximize2 className="w-4 h-4" />
-            </Button>
-            
-            <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-              <HelpCircle className="w-4 h-4" />
-            </Button>
-          </div>
-        </div>
       </div>
+      </EditorProvider>
     </ThemeProvider>
   );
 };
