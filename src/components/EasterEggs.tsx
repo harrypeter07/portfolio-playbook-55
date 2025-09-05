@@ -14,12 +14,10 @@ import {
   Trophy,
   Gift,
   PartyPopper,
-  Confetti,
   Smile,
   Laugh,
   ThumbsUp,
   Fire,
-  Lightning,
   Sun,
   Moon,
   Flower2,
@@ -41,7 +39,7 @@ interface EasterEggProps {
 
 const EFFECTS = {
   confetti: {
-    component: Confetti,
+    component: PartyPopper,
     color: '#FF6B6B',
     animation: 'confetti-burst'
   },

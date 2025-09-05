@@ -90,7 +90,7 @@ export const CanvaPage = ({ children, activeSection }: CanvaPageProps) => {
       <div className="flex-1 bg-gray-100 p-8 overflow-auto">
         <div className="flex items-center justify-center min-h-full">
           <Card 
-            className="bg-white shadow-2xl border-2 border-border animate-fade-in"
+            className="bg-white shadow-2xl border-2 border-gray-200"
             style={{
               width: selectedSize.width * scale,
               height: selectedSize.height * scale,

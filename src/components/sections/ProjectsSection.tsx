@@ -24,23 +24,23 @@ interface ProjectsSectionProps {
 export const ProjectsSection = ({ data, isPreviewMode }: ProjectsSectionProps) => {
 
   return (
-    <div className="w-full h-full p-8">
+    <div className="w-full h-full p-8 bg-white">
       <div className="max-w-4xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {data.map((project) => (
-            <Card key={project.id} className="overflow-hidden bg-gradient-card card-hover animate-bounce-in">
+            <Card key={project.id} className="overflow-hidden bg-white shadow-lg hover:shadow-xl transition-shadow">
               {project.image && (
-                <div className="h-48 bg-muted flex items-center justify-center">
-                  <ImageIcon className="w-12 h-12 text-muted-foreground" />
+                <div className="h-48 bg-gray-100 flex items-center justify-center">
+                  <ImageIcon className="w-12 h-12 text-gray-400" />
                 </div>
               )}
               <div className="p-6">
-                <h3 className="text-xl font-semibold text-foreground mb-2">{project.title}</h3>
-                <p className="text-muted-foreground mb-4 leading-relaxed">{project.description}</p>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">{project.title}</h3>
+                <p className="text-gray-600 mb-4 leading-relaxed">{project.description}</p>
                 
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tech.map((tech) => (
-                    <Badge key={tech} variant="secondary" className="text-xs">
+                    <Badge key={tech} variant="secondary" className="text-xs bg-gray-100 text-gray-700">
                       {tech}
                     </Badge>
                   ))}

@@ -58,7 +58,7 @@ export const PortfolioCanvas = ({
   }
 
   return (
-    <main className="flex-1 overflow-hidden">
+    <main className="flex-1 overflow-hidden bg-white">
       <CanvaPage activeSection={activeSection}>
         {renderSection()}
       </CanvaPage>

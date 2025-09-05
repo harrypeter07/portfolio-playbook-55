@@ -80,7 +80,7 @@ const PortfolioBuilder = () => {
 
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-gray-50 relative">
+      <div className="min-h-screen relative" style={{ background: 'var(--gradient-bg)' }}>
         <DoodleOverlay />
         <EasterEggManager />
         

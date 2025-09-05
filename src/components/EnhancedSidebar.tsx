@@ -297,12 +297,12 @@ export const EnhancedSidebar: React.FC<EnhancedSidebarProps> = ({
       {/* Header */}
       <div className="p-4 border-b border-gray-100">
         <div className="flex items-center gap-2 mb-4">
-          <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
+          <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center">
             <Heart className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h2 className="font-bold text-lg text-foreground">CanvaFolio</h2>
-            <p className="text-xs text-muted-foreground">Portfolio Builder</p>
+            <h2 className="font-bold text-lg text-gray-900">CanvaFolio</h2>
+            <p className="text-xs text-gray-500">Portfolio Builder</p>
           </div>
         </div>
 
@@ -341,8 +341,8 @@ export const EnhancedSidebar: React.FC<EnhancedSidebarProps> = ({
                 </div>
                 
                 <div className="flex-1 min-w-0">
-                  <div className="font-medium text-sm text-foreground">{category.label}</div>
-                  <div className="text-xs text-muted-foreground">{category.description}</div>
+                  <div className="font-medium text-sm text-gray-900">{category.label}</div>
+                  <div className="text-xs text-gray-500">{category.description}</div>
                 </div>
 
                 <div className="flex items-center gap-1">
