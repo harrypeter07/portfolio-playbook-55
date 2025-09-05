@@ -130,12 +130,14 @@ const PortfolioBuilder = () => {
 
   // Access editor state to sync P1/P2 with sidebar selection
   const EditorSync: React.FC = () => {
-    const { setCurrentPage } = useEditor();
+    const { setCurrentPage, setActiveSection } = useEditor();
     return (
       <PortfolioSidebar
         activeSection={activeSection}
         onSectionChange={(section: PortfolioSection) => {
-          setActiveSection(section);
+          if (['about','projects','experience','skills','contact'].includes(section)) {
+            setActiveSection(section as any);
+          }
           if (section === 'about') setCurrentPage('P1');
           if (section === 'projects') setCurrentPage('P2');
         }}

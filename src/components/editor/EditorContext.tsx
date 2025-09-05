@@ -22,6 +22,15 @@ type EditorContextType = {
   setCurrentPage: (p: "P1" | "P2") => void;
   zoom: number; // 0.25 - 2.0
   setZoom: (z: number) => void;
+  activeSection: 'about' | 'projects' | 'experience' | 'skills' | 'contact';
+  setActiveSection: (s: EditorContextType['activeSection']) => void;
+  textStyle: {
+    fontFamily: string;
+    fontSizePx: number;
+    color: string;
+    align: 'left' | 'center' | 'right' | 'justify';
+  };
+  setTextStyle: (p: Partial<EditorContextType['textStyle']>) => void;
 };
 
 const EditorContext = createContext<EditorContextType | undefined>(undefined);
@@ -30,6 +39,13 @@ export const EditorProvider = ({ children }: { children: React.ReactNode }) => {
   const [pageSize, setPageSize] = useState<PageSize>(PAGE_SIZES[0]);
   const [currentPage, setCurrentPage] = useState<"P1" | "P2">("P1");
   const [zoom, setZoomInternal] = useState<number>(0.48);
+  const [activeSection, setActiveSection] = useState<EditorContextType['activeSection']>('about');
+  const [textStyle, setTextStyleState] = useState<EditorContextType['textStyle']>({
+    fontFamily: 'Inter',
+    fontSizePx: 16,
+    color: '#111111',
+    align: 'left'
+  });
 
   const setZoom = useCallback((z: number) => {
     const clamped = Math.max(0.25, Math.min(2, z));
@@ -46,8 +62,15 @@ export const EditorProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const value = useMemo(
-    () => ({ pageSize, setPageSizeByName, setCustomPageSize, currentPage, setCurrentPage, zoom, setZoom }),
-    [pageSize, setPageSizeByName, setCustomPageSize, currentPage, setCurrentPage, zoom, setZoom]
+    () => ({ 
+      pageSize, setPageSizeByName, setCustomPageSize,
+      currentPage, setCurrentPage,
+      zoom, setZoom,
+      activeSection, setActiveSection,
+      textStyle,
+      setTextStyle: (p) => setTextStyleState(prev => ({ ...prev, ...p }))
+    }),
+    [pageSize, setPageSizeByName, setCustomPageSize, currentPage, setCurrentPage, zoom, setZoom, activeSection, textStyle]
   );
 
   return <EditorContext.Provider value={value}>{children}</EditorContext.Provider>;

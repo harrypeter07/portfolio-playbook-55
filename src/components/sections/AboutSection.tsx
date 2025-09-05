@@ -1,4 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useEditor } from "@/components/editor/EditorContext";
 
 interface AboutData {
   name: string;
@@ -13,6 +14,7 @@ interface AboutSectionProps {
 }
 
 export const AboutSection = ({ data, isPreviewMode }: AboutSectionProps) => {
+  const { textStyle } = useEditor();
 
   return (
     <div className="w-full h-full p-8 bg-white">
@@ -24,10 +26,10 @@ export const AboutSection = ({ data, isPreviewMode }: AboutSectionProps) => {
           </AvatarFallback>
         </Avatar>
         
-        <div className="flex-1 text-center md:text-left">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">{data.name}</h1>
-          <h2 className="text-xl text-purple-600 mb-4">{data.title}</h2>
-          <p className="text-gray-600 leading-relaxed">{data.description}</p>
+        <div className="flex-1 text-center md:text-left" style={{ fontFamily: textStyle.fontFamily }}>
+          <h1 className="text-4xl font-bold text-gray-900 mb-2" style={{ fontSize: textStyle.fontSizePx + 8, textAlign: textStyle.align as any, color: textStyle.color }}>{data.name}</h1>
+          <h2 className="text-xl text-purple-600 mb-4" style={{ textAlign: textStyle.align as any }}>{data.title}</h2>
+          <p className="text-gray-600 leading-relaxed" style={{ fontSize: textStyle.fontSizePx, textAlign: textStyle.align as any, color: textStyle.color }}>{data.description}</p>
         </div>
       </div>
     </div>

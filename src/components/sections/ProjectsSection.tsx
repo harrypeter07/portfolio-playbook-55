@@ -6,6 +6,7 @@ import {
   Github,
   ImageIcon
 } from "lucide-react";
+import { useEditor } from "@/components/editor/EditorContext";
 
 interface Project {
   id: string;
@@ -22,7 +23,7 @@ interface ProjectsSectionProps {
 }
 
 export const ProjectsSection = ({ data, isPreviewMode }: ProjectsSectionProps) => {
-
+  const { textStyle } = useEditor();
   return (
     <div className="w-full h-full p-8 bg-white">
       <div className="max-w-4xl mx-auto">
@@ -34,9 +35,9 @@ export const ProjectsSection = ({ data, isPreviewMode }: ProjectsSectionProps) =
                   <ImageIcon className="w-12 h-12 text-gray-400" />
                 </div>
               )}
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">{project.title}</h3>
-                <p className="text-gray-600 mb-4 leading-relaxed">{project.description}</p>
+              <div className="p-6" style={{ fontFamily: textStyle.fontFamily }}>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2" style={{ fontSize: textStyle.fontSizePx + 2, color: textStyle.color }}>{project.title}</h3>
+                <p className="text-gray-600 mb-4 leading-relaxed" style={{ fontSize: textStyle.fontSizePx }}>{project.description}</p>
                 
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tech.map((tech) => (

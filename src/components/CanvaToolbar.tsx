@@ -23,8 +23,10 @@ import {
   Settings
 } from "lucide-react";
 import { useState } from "react";
+import { useEditor } from "@/components/editor/EditorContext";
 
 export const CanvaToolbar = () => {
+  const { textStyle, setTextStyle } = useEditor();
   const [fontSize, setFontSize] = useState("16");
   const [fontFamily, setFontFamily] = useState("Inter");
   const [textColor, setTextColor] = useState("#000000");
@@ -67,7 +69,7 @@ export const CanvaToolbar = () => {
       <Separator orientation="vertical" className="h-8" />
 
       {/* Font Family */}
-      <Select value={fontFamily} onValueChange={setFontFamily}>
+      <Select value={fontFamily} onValueChange={(v) => { setFontFamily(v); setTextStyle({ fontFamily: v }); }}>
         <SelectTrigger className="w-36 h-8 text-sm">
           <SelectValue />
         </SelectTrigger>
@@ -91,12 +93,13 @@ export const CanvaToolbar = () => {
           onClick={() => {
             const current = parseInt(fontSize);
             if (current > 12) setFontSize((current - 2).toString());
+            setTextStyle({ fontSizePx: Math.max(12, parseInt(fontSize) - 2) });
           }}
         >
           <Minus className="w-3 h-3" />
         </Button>
         
-        <Select value={fontSize} onValueChange={setFontSize}>
+        <Select value={fontSize} onValueChange={(v) => { setFontSize(v); setTextStyle({ fontSizePx: parseInt(v) }); }}>
           <SelectTrigger className="w-16 h-8 text-sm">
             <SelectValue />
           </SelectTrigger>
@@ -116,6 +119,7 @@ export const CanvaToolbar = () => {
           onClick={() => {
             const current = parseInt(fontSize);
             if (current < 64) setFontSize((current + 2).toString());
+            setTextStyle({ fontSizePx: Math.min(64, parseInt(fontSize) + 2) });
           }}
         >
           <Plus className="w-3 h-3" />
@@ -158,7 +162,7 @@ export const CanvaToolbar = () => {
                 key={color}
                 className="w-6 h-6 rounded border border-gray-200 hover:scale-110 transition-transform"
                 style={{ backgroundColor: color }}
-                onClick={() => setTextColor(color)}
+                onClick={() => { setTextColor(color); setTextStyle({ color }); }}
               />
             ))}
           </div>
