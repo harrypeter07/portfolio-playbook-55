@@ -25,44 +25,44 @@ interface ProjectsSectionProps {
 export const ProjectsSection = ({ data, isPreviewMode }: ProjectsSectionProps) => {
   const { textStyle } = useEditor();
   return (
-    <div className="w-full h-full p-8 bg-white">
-      <div className="max-w-4xl mx-auto h-full flex items-center justify-center">
-        <Card className="w-full max-w-2xl bg-white shadow-lg hover:shadow-xl transition-shadow">
+    <div className="w-full h-full bg-white">
+      <div className="h-full flex items-center justify-center p-12">
+        <div className="w-full max-w-5xl h-full flex flex-col">
           {data[0]?.image && (
-            <div className="h-64 bg-gray-100 flex items-center justify-center">
-              <ImageIcon className="w-16 h-16 text-gray-400" />
+            <div className="h-1/2 bg-gray-100 flex items-center justify-center mb-8 rounded-lg">
+              <ImageIcon className="w-24 h-24 text-gray-400" />
             </div>
           )}
-          <div className="p-8" style={{ fontFamily: textStyle.fontFamily }}>
-            <h1 className="text-3xl font-bold text-gray-900 mb-4" style={{ fontSize: textStyle.fontSizePx + 12, color: textStyle.color, textAlign: textStyle.align as any }}>
+          <div className="flex-1 flex flex-col justify-center" style={{ fontFamily: textStyle.fontFamily }}>
+            <h1 className="text-5xl font-bold text-gray-900 mb-6" style={{ fontSize: textStyle.fontSizePx + 20, color: textStyle.color, textAlign: textStyle.align as any }}>
               {data[0]?.title || "Featured Project"}
             </h1>
-            <p className="text-lg text-gray-600 mb-6 leading-relaxed" style={{ fontSize: textStyle.fontSizePx + 2, textAlign: textStyle.align as any, color: textStyle.color }}>
+            <p className="text-2xl text-gray-600 mb-8 leading-relaxed" style={{ fontSize: textStyle.fontSizePx + 6, textAlign: textStyle.align as any, color: textStyle.color }}>
               {data[0]?.description || "A showcase of my latest work and technical expertise."}
             </p>
             
-            <div className="flex flex-wrap gap-3 mb-8">
+            <div className="flex flex-wrap gap-4 mb-12">
               {(data[0]?.tech || ["React", "TypeScript", "Node.js"]).map((tech) => (
-                <Badge key={tech} variant="secondary" className="text-sm bg-purple-100 text-purple-700 px-3 py-1">
+                <Badge key={tech} variant="secondary" className="text-lg bg-purple-100 text-purple-700 px-4 py-2">
                   {tech}
                 </Badge>
               ))}
             </div>
 
-            <div className="flex gap-4">
+            <div className="flex gap-6">
               {data[0]?.link && (
-                <Button variant="default" size="lg" className="flex-1 bg-purple-600 hover:bg-purple-700">
-                  <ExternalLink className="w-5 h-5 mr-2" />
+                <Button variant="default" size="lg" className="flex-1 bg-purple-600 hover:bg-purple-700 text-lg py-4">
+                  <ExternalLink className="w-6 h-6 mr-3" />
                   View Live Demo
                 </Button>
               )}
-              <Button variant="outline" size="lg" className="flex-1">
-                <Github className="w-5 h-5 mr-2" />
+              <Button variant="outline" size="lg" className="flex-1 text-lg py-4">
+                <Github className="w-6 h-6 mr-3" />
                 View Code
               </Button>
             </div>
           </div>
-        </Card>
+        </div>
       </div>
     </div>
   );

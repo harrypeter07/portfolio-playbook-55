@@ -18,8 +18,10 @@ type EditorContextType = {
   pageSize: PageSize;
   setPageSizeByName: (name: string) => void;
   setCustomPageSize: (width: number, height: number) => void;
-  currentPage: "P1" | "P2";
-  setCurrentPage: (p: "P1" | "P2") => void;
+  currentPage: number; // Dynamic page number (1, 2, 3, etc.)
+  setCurrentPage: (p: number) => void;
+  totalPages: number; // Total pages for current section
+  setTotalPages: (p: number) => void;
   zoom: number; // 0.25 - 2.0
   setZoom: (z: number) => void;
   activeSection: 'about' | 'projects' | 'experience' | 'skills' | 'contact';
@@ -37,7 +39,8 @@ const EditorContext = createContext<EditorContextType | undefined>(undefined);
 
 export const EditorProvider = ({ children }: { children: React.ReactNode }) => {
   const [pageSize, setPageSize] = useState<PageSize>(PAGE_SIZES[0]);
-  const [currentPage, setCurrentPage] = useState<"P1" | "P2">("P1");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
   const [zoom, setZoomInternal] = useState<number>(0.48);
   const [activeSection, setActiveSection] = useState<EditorContextType['activeSection']>('about');
   const [textStyle, setTextStyleState] = useState<EditorContextType['textStyle']>({
@@ -65,12 +68,13 @@ export const EditorProvider = ({ children }: { children: React.ReactNode }) => {
     () => ({ 
       pageSize, setPageSizeByName, setCustomPageSize,
       currentPage, setCurrentPage,
+      totalPages, setTotalPages,
       zoom, setZoom,
       activeSection, setActiveSection,
       textStyle,
       setTextStyle: (p) => setTextStyleState(prev => ({ ...prev, ...p }))
     }),
-    [pageSize, setPageSizeByName, setCustomPageSize, currentPage, setCurrentPage, zoom, setZoom, activeSection, textStyle]
+    [pageSize, setPageSizeByName, setCustomPageSize, currentPage, setCurrentPage, totalPages, setTotalPages, zoom, setZoom, activeSection, textStyle]
   );
 
   return <EditorContext.Provider value={value}>{children}</EditorContext.Provider>;

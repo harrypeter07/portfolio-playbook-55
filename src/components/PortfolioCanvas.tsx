@@ -1,3 +1,4 @@
+import React from "react";
 import { PortfolioSection, PortfolioData } from "./PortfolioBuilder";
 import { AboutSection } from "./sections/AboutSection";
 import { ProjectsSection } from "./sections/ProjectsSection";
@@ -19,28 +20,25 @@ export const PortfolioCanvas = ({
   isPreviewMode,
   currentPage = 'P1'
 }: PortfolioCanvasProps) => {
-  const { currentPage: ctxPage, activeSection: ctxActiveSection } = useEditor();
+  const { currentPage: ctxPage, activeSection: ctxActiveSection, setTotalPages, setCurrentPage } = useEditor();
   const page = ctxPage || currentPage;
-  const renderSection = () => {
-    // Show different content based on current page
-    if (page === 'P1') {
-      return (
-        <AboutSection
-          data={portfolioData.about}
-          isPreviewMode={isPreviewMode}
-        />
-      );
-    } else if (page === 'P2') {
-      return (
-        <ProjectsSection
-          data={portfolioData.projects}
-          isPreviewMode={isPreviewMode}
-        />
-      );
-    }
 
-    // Fallback to original section-based rendering
-    switch (activeSection) {
+  // Set total pages based on active section
+  React.useEffect(() => {
+    if (ctxActiveSection === 'about') {
+      setTotalPages(1);
+      setCurrentPage(1);
+    } else if (ctxActiveSection === 'projects') {
+      setTotalPages(portfolioData.projects.length);
+      setCurrentPage(1);
+    } else {
+      setTotalPages(1);
+      setCurrentPage(1);
+    }
+  }, [ctxActiveSection, portfolioData.projects.length, setTotalPages, setCurrentPage]);
+  const renderSection = () => {
+    // Show content based on active section and current page
+    switch (ctxActiveSection) {
       case 'about':
         return (
           <AboutSection
@@ -49,9 +47,12 @@ export const PortfolioCanvas = ({
           />
         );
       case 'projects':
+        // For projects, show the specific project for the current page
+        const projectIndex = (ctxPage || 1) - 1;
+        const currentProject = portfolioData.projects[projectIndex];
         return (
           <ProjectsSection
-            data={portfolioData.projects}
+            data={currentProject ? [currentProject] : []}
             isPreviewMode={isPreviewMode}
           />
         );
@@ -62,7 +63,7 @@ export const PortfolioCanvas = ({
               <Construction className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
               <h3 className="text-xl font-semibold mb-2">Coming Soon!</h3>
               <p className="text-muted-foreground">
-                The {activeSection} section is being built. Stay tuned for more amazing features!
+                The {ctxActiveSection} section is being built. Stay tuned for more amazing features!
               </p>
             </div>
           </Card>

@@ -64,7 +64,6 @@ export interface PortfolioData {
 
 const PortfolioBuilder = () => {
   const [activeSection, setActiveSection] = useState<PortfolioSection>('about');
-  const [currentPage, setCurrentPage] = useState<'P1' | 'P2'>('P1');
   const [portfolioData, setPortfolioData] = useState<PortfolioData>({
     about: {
       name: "John Doe",
@@ -138,8 +137,8 @@ const PortfolioBuilder = () => {
           if (['about','projects','experience','skills','contact'].includes(section)) {
             setActiveSection(section as any);
           }
-          if (section === 'about') setCurrentPage('P1');
-          if (section === 'projects') setCurrentPage('P2');
+          if (section === 'about') setCurrentPage(1);
+          if (section === 'projects') setCurrentPage(1);
         }}
         portfolioData={portfolioData}
       />
