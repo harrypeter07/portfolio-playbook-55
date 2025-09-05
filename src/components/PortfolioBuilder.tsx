@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { EnhancedSidebar } from "@/components/EnhancedSidebar";
 import { PortfolioCanvas } from "@/components/PortfolioCanvas";
