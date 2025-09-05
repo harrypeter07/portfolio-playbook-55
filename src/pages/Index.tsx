@@ -1,7 +1,7 @@
-import PortfolioBuilder from "@/components/PortfolioBuilder";
+import Portfolio from "@/components/Portfolio";
 
 const Index = () => {
-  return <PortfolioBuilder />;
+  return <Portfolio />;
 };
 
 export default Index;
