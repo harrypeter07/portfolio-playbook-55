@@ -5,7 +5,6 @@ import { CanvaPage } from "./CanvaPage";
 import { Card } from "@/components/ui/card";
 import { Construction } from "lucide-react";
 import { useEditor } from "@/components/editor/EditorContext";
-import { motion, AnimatePresence } from 'framer-motion';
 
 interface PortfolioCanvasProps {
   activeSection: PortfolioSection;
@@ -71,22 +70,16 @@ export const PortfolioCanvas = ({
     }
   };
 
-  // Animate section switches like Canva using slide transitions
-  const slideVariants = {
-    initial: { opacity: 0, x: 40 },
-    enter: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: -40 }
-  };
-
   if (isPreviewMode) {
     return (
       <main className="flex-1 bg-white overflow-hidden">
         <CanvaPage activeSection={ctxActiveSection}>
-          <AnimatePresence mode="wait">
-            <motion.div key={ctxActiveSection + page} variants={slideVariants} initial="initial" animate="enter" exit="exit" transition={{ duration: 0.25 }}>
-              {renderSection()}
-            </motion.div>
-          </AnimatePresence>
+          <div 
+            key={ctxActiveSection + page}
+            className="animate-in slide-in-from-right-4 duration-300"
+          >
+            {renderSection()}
+          </div>
         </CanvaPage>
       </main>
     );
@@ -95,11 +88,12 @@ export const PortfolioCanvas = ({
   return (
     <main className="flex-1 overflow-hidden bg-white">
       <CanvaPage activeSection={ctxActiveSection}>
-        <AnimatePresence mode="wait">
-          <motion.div key={ctxActiveSection + page} variants={slideVariants} initial="initial" animate="enter" exit="exit" transition={{ duration: 0.25 }}>
-            {renderSection()}
-          </motion.div>
-        </AnimatePresence>
+        <div 
+          key={ctxActiveSection + page}
+          className="animate-in slide-in-from-right-4 duration-300"
+        >
+          {renderSection()}
+        </div>
       </CanvaPage>
     </main>
   );
