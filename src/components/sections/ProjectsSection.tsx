@@ -26,43 +26,43 @@ export const ProjectsSection = ({ data, isPreviewMode }: ProjectsSectionProps) =
   const { textStyle } = useEditor();
   return (
     <div className="w-full h-full p-8 bg-white">
-      <div className="max-w-4xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {data.map((project) => (
-            <Card key={project.id} className="overflow-hidden bg-white shadow-lg hover:shadow-xl transition-shadow">
-              {project.image && (
-                <div className="h-48 bg-gray-100 flex items-center justify-center">
-                  <ImageIcon className="w-12 h-12 text-gray-400" />
-                </div>
-              )}
-              <div className="p-6" style={{ fontFamily: textStyle.fontFamily }}>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2" style={{ fontSize: textStyle.fontSizePx + 2, color: textStyle.color }}>{project.title}</h3>
-                <p className="text-gray-600 mb-4 leading-relaxed" style={{ fontSize: textStyle.fontSizePx }}>{project.description}</p>
-                
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tech.map((tech) => (
-                    <Badge key={tech} variant="secondary" className="text-xs bg-gray-100 text-gray-700">
-                      {tech}
-                    </Badge>
-                  ))}
-                </div>
+      <div className="max-w-4xl mx-auto h-full flex items-center justify-center">
+        <Card className="w-full max-w-2xl bg-white shadow-lg hover:shadow-xl transition-shadow">
+          {data[0]?.image && (
+            <div className="h-64 bg-gray-100 flex items-center justify-center">
+              <ImageIcon className="w-16 h-16 text-gray-400" />
+            </div>
+          )}
+          <div className="p-8" style={{ fontFamily: textStyle.fontFamily }}>
+            <h1 className="text-3xl font-bold text-gray-900 mb-4" style={{ fontSize: textStyle.fontSizePx + 12, color: textStyle.color, textAlign: textStyle.align as any }}>
+              {data[0]?.title || "Featured Project"}
+            </h1>
+            <p className="text-lg text-gray-600 mb-6 leading-relaxed" style={{ fontSize: textStyle.fontSizePx + 2, textAlign: textStyle.align as any, color: textStyle.color }}>
+              {data[0]?.description || "A showcase of my latest work and technical expertise."}
+            </p>
+            
+            <div className="flex flex-wrap gap-3 mb-8">
+              {(data[0]?.tech || ["React", "TypeScript", "Node.js"]).map((tech) => (
+                <Badge key={tech} variant="secondary" className="text-sm bg-purple-100 text-purple-700 px-3 py-1">
+                  {tech}
+                </Badge>
+              ))}
+            </div>
 
-                <div className="flex space-x-2">
-                  {project.link && (
-                    <Button variant="outline" size="sm" className="flex-1">
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      Live Demo
-                    </Button>
-                  )}
-                  <Button variant="outline" size="sm" className="flex-1">
-                    <Github className="w-4 h-4 mr-2" />
-                    Code
-                  </Button>
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
+            <div className="flex gap-4">
+              {data[0]?.link && (
+                <Button variant="default" size="lg" className="flex-1 bg-purple-600 hover:bg-purple-700">
+                  <ExternalLink className="w-5 h-5 mr-2" />
+                  View Live Demo
+                </Button>
+              )}
+              <Button variant="outline" size="lg" className="flex-1">
+                <Github className="w-5 h-5 mr-2" />
+                View Code
+              </Button>
+            </div>
+          </div>
+        </Card>
       </div>
     </div>
   );
