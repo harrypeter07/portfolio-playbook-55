@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
-import { EnhancedSidebar } from "@/components/EnhancedSidebar";
+import { PortfolioSidebar } from "@/components/PortfolioSidebar";
 import { PortfolioCanvas } from "@/components/PortfolioCanvas";
 import { TopBar } from "@/components/TopBar";
 import { CanvaToolbar } from "@/components/CanvaToolbar";
@@ -143,11 +143,10 @@ const PortfolioBuilder = () => {
         <div className={`flex ${isPreviewMode ? 'h-[calc(100vh-6.5rem)]' : 'h-[calc(100vh-10.5rem)]'}`}>
           {/* Left Sidebar - Portfolio Sections */}
           {!isPreviewMode && (
-            <EnhancedSidebar
+            <PortfolioSidebar
               activeSection={activeSection}
-              onSectionChange={(section: string) => setActiveSection(section as PortfolioSection)}
-              isPreviewMode={isPreviewMode}
-              onTogglePreview={() => setIsPreviewMode(!isPreviewMode)}
+              onSectionChange={(section: PortfolioSection) => setActiveSection(section)}
+              portfolioData={portfolioData}
             />
           )}
 

@@ -65,7 +65,7 @@ export const CanvaPage = ({ children, activeSection }: CanvaPageProps) => {
             </button>
           </div>
           <Card 
-            className="bg-white shadow-2xl border-2 border-gray-200"
+            className="bg-white shadow-2xl border-2"
             style={{
               width: pageSize.width,
               height: pageSize.height,
@@ -73,7 +73,11 @@ export const CanvaPage = ({ children, activeSection }: CanvaPageProps) => {
               transformOrigin: 'center center'
             }}
           >
-            <div className="w-full h-full overflow-auto">
+            <div className="w-full h-full overflow-auto"
+              style={{
+                boxShadow: '0 0 0 2px #a855f7 inset',
+              }}
+            >
               {children || (
                 <div className="flex items-center justify-center h-full text-center p-8">
                   {!activeSection ? (
