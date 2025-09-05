@@ -74,7 +74,7 @@ const EFFECTS = {
     animation: 'bounce-frenzy'
   },
   glow: {
-    component: Lightning,
+    component: Zap,
     color: '#74B9FF',
     animation: 'glow-pulse'
   }

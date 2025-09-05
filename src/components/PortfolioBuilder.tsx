@@ -81,8 +81,9 @@ const PortfolioBuilder = () => {
   return (
     <ThemeProvider>
       <div className="min-h-screen relative" style={{ background: 'var(--gradient-bg)' }}>
-        <DoodleOverlay />
-        <EasterEggManager />
+        {/* Temporarily disabled problematic components */}
+        {/* <DoodleOverlay />
+        <EasterEggManager /> */}
         
         <TopBar 
           isPreviewMode={isPreviewMode}
@@ -104,7 +105,7 @@ const PortfolioBuilder = () => {
           )}
 
           {/* Main Canvas - Full width when in preview mode */}
-          <MagicAnimate type="fade" delay={0.2}>
+          <div className="flex-1">
             {activeSection === 'canvas' ? (
               <DragDropCanvas
                 items={canvasItems}
@@ -130,7 +131,7 @@ const PortfolioBuilder = () => {
                        isPreviewMode={isPreviewMode}
                      />
                    )}
-          </MagicAnimate>
+          </div>
         </div>
       </div>
     </ThemeProvider>

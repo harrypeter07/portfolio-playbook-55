@@ -31,7 +31,7 @@ import {
   Eye,
   EyeOff
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+// import { motion, AnimatePresence } from 'framer-motion';
 
 interface SidebarCategory {
   id: string;
@@ -243,12 +243,7 @@ export const EnhancedSidebar: React.FC<EnhancedSidebarProps> = ({
     if (!hoveredCategory || hoveredCategory !== category.id) return null;
 
     return (
-      <motion.div
-        initial={{ opacity: 0, x: -10 }}
-        animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: -10 }}
-        className="absolute left-full top-0 ml-2 w-64 z-50"
-      >
+      <div className="absolute left-full top-0 ml-2 w-64 z-50">
         <Card className="p-4 bg-white shadow-xl border border-gray-200">
           <div className="flex items-center gap-2 mb-3">
             <div className={`p-2 rounded-lg ${category.color} text-white`}>
@@ -288,7 +283,7 @@ export const EnhancedSidebar: React.FC<EnhancedSidebarProps> = ({
             )}
           </div>
         </Card>
-      </motion.div>
+      </div>
     );
   };
 
@@ -361,60 +356,50 @@ export const EnhancedSidebar: React.FC<EnhancedSidebarProps> = ({
             </Button>
 
             {/* Category Preview */}
-            <AnimatePresence>
-              {renderCategoryPreview(category)}
-            </AnimatePresence>
+            {renderCategoryPreview(category)}
 
             {/* Expanded Items */}
-            <AnimatePresence>
-              {expandedCategories.has(category.id) && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: 'auto', opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="overflow-hidden"
-                >
-                  <div className="ml-6 mt-2 space-y-1">
-                    {category.items.map((item) => (
-                      <Button
-                        key={item.id}
-                        variant="ghost"
-                        onClick={item.onClick}
-                        className={`
-                          w-full justify-start h-8 px-2 rounded text-left transition-colors
-                          ${activeSection === item.id 
-                            ? 'bg-purple-100 text-purple-700 border border-purple-200' 
-                            : 'hover:bg-gray-50 text-gray-700'
-                          }
-                        `}
-                      >
-                        <div className="flex items-center gap-2 w-full">
-                          {item.icon && (
-                            <div className={`w-3 h-3 ${
-                              activeSection === item.id ? 'text-purple-600' : 'text-gray-500'
-                            }`}>
-                              {item.icon}
-                            </div>
-                          )}
-                          <span className="text-xs font-medium flex-1 truncate">
-                            {item.label}
-                          </span>
-                          {item.badge && (
-                            <Badge 
-                              variant={activeSection === item.id ? "default" : "secondary"} 
-                              className="text-xs h-4 px-1"
-                            >
-                              {item.badge}
-                            </Badge>
-                          )}
-                        </div>
-                      </Button>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {expandedCategories.has(category.id) && (
+              <div className="overflow-hidden">
+                <div className="ml-6 mt-2 space-y-1">
+                  {category.items.map((item) => (
+                    <Button
+                      key={item.id}
+                      variant="ghost"
+                      onClick={item.onClick}
+                      className={`
+                        w-full justify-start h-8 px-2 rounded text-left transition-colors
+                        ${activeSection === item.id 
+                          ? 'bg-purple-100 text-purple-700 border border-purple-200' 
+                          : 'hover:bg-gray-50 text-gray-700'
+                        }
+                      `}
+                    >
+                      <div className="flex items-center gap-2 w-full">
+                        {item.icon && (
+                          <div className={`w-3 h-3 ${
+                            activeSection === item.id ? 'text-purple-600' : 'text-gray-500'
+                          }`}>
+                            {item.icon}
+                          </div>
+                        )}
+                        <span className="text-xs font-medium flex-1 truncate">
+                          {item.label}
+                        </span>
+                        {item.badge && (
+                          <Badge 
+                            variant={activeSection === item.id ? "default" : "secondary"} 
+                            className="text-xs h-4 px-1"
+                          >
+                            {item.badge}
+                          </Badge>
+                        )}
+                      </div>
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         ))}
       </div>
