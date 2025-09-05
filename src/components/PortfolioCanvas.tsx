@@ -20,7 +20,7 @@ export const PortfolioCanvas = ({
   isPreviewMode,
   currentPage = 'P1'
 }: PortfolioCanvasProps) => {
-  const { currentPage: ctxPage, activeSection } = useEditor();
+  const { currentPage: ctxPage, activeSection: ctxActiveSection } = useEditor();
   const page = ctxPage || currentPage;
   const renderSection = () => {
     // Show different content based on current page
@@ -81,9 +81,9 @@ export const PortfolioCanvas = ({
   if (isPreviewMode) {
     return (
       <main className="flex-1 bg-white overflow-hidden">
-        <CanvaPage activeSection={activeSection}>
+        <CanvaPage activeSection={ctxActiveSection}>
           <AnimatePresence mode="wait">
-            <motion.div key={activeSection + page} variants={slideVariants} initial="initial" animate="enter" exit="exit" transition={{ duration: 0.25 }}>
+            <motion.div key={ctxActiveSection + page} variants={slideVariants} initial="initial" animate="enter" exit="exit" transition={{ duration: 0.25 }}>
               {renderSection()}
             </motion.div>
           </AnimatePresence>
@@ -94,9 +94,9 @@ export const PortfolioCanvas = ({
 
   return (
     <main className="flex-1 overflow-hidden bg-white">
-      <CanvaPage activeSection={activeSection}>
+      <CanvaPage activeSection={ctxActiveSection}>
         <AnimatePresence mode="wait">
-          <motion.div key={activeSection + page} variants={slideVariants} initial="initial" animate="enter" exit="exit" transition={{ duration: 0.25 }}>
+          <motion.div key={ctxActiveSection + page} variants={slideVariants} initial="initial" animate="enter" exit="exit" transition={{ duration: 0.25 }}>
             {renderSection()}
           </motion.div>
         </AnimatePresence>
