@@ -30,8 +30,8 @@ export const ExperienceSection = ({ data, isPreviewMode }: ExperienceSectionProp
             <div className="w-full">
               {/* Header */}
               <div className="text-center mb-16" style={{ fontFamily: textStyle.fontFamily }}>
-                <h1 className="text-8xl font-black text-gray-900 mb-8" style={{ 
-                  fontSize: textStyle.fontSizePx + 32, 
+                <h1 className="text-[10rem] font-black text-gray-900 mb-12" style={{ 
+                  fontSize: textStyle.fontSizePx + 48, 
                   color: textStyle.color, 
                   textAlign: textStyle.align as any 
                 }}>
@@ -57,16 +57,16 @@ export const ExperienceSection = ({ data, isPreviewMode }: ExperienceSectionProp
                   <div className="flex-1" style={{ fontFamily: textStyle.fontFamily }}>
                     {/* Role and Company */}
                     <div className="mb-8">
-                      <h2 className="text-6xl font-black text-gray-900 mb-4" style={{ 
-                        fontSize: textStyle.fontSizePx + 24, 
+                      <h2 className="text-8xl font-black text-gray-900 mb-6" style={{ 
+                        fontSize: textStyle.fontSizePx + 40, 
                         color: textStyle.color 
                       }}>
                         {data[0].role}
                       </h2>
-                      <div className="flex items-center gap-4 mb-6">
-                        <Building className="w-8 h-8 text-green-600" />
-                        <span className="text-4xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent" style={{ 
-                          fontSize: textStyle.fontSizePx + 12 
+                      <div className="flex items-center gap-6 mb-8">
+                        <Building className="w-12 h-12 text-green-600" />
+                        <span className="text-6xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent" style={{ 
+                          fontSize: textStyle.fontSizePx + 24 
                         }}>
                           {data[0].company}
                         </span>
@@ -75,19 +75,19 @@ export const ExperienceSection = ({ data, isPreviewMode }: ExperienceSectionProp
                     
                     {/* Period and Location */}
                     <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
-                      <div className="flex items-center gap-4 mb-4 lg:mb-0">
-                        <Calendar className="w-8 h-8 text-gray-500" />
-                        <span className="text-2xl font-semibold text-gray-700" style={{ 
-                          fontSize: textStyle.fontSizePx + 6 
+                      <div className="flex items-center gap-6 mb-6 lg:mb-0">
+                        <Calendar className="w-12 h-12 text-gray-500" />
+                        <span className="text-4xl font-bold text-gray-700" style={{ 
+                          fontSize: textStyle.fontSizePx + 16 
                         }}>
                           {data[0].period}
                         </span>
                       </div>
                       {data[0].location && (
-                        <div className="flex items-center gap-4">
-                          <MapPin className="w-8 h-8 text-gray-500" />
-                          <span className="text-2xl font-semibold text-gray-700" style={{ 
-                            fontSize: textStyle.fontSizePx + 6 
+                        <div className="flex items-center gap-6">
+                          <MapPin className="w-12 h-12 text-gray-500" />
+                          <span className="text-4xl font-bold text-gray-700" style={{ 
+                            fontSize: textStyle.fontSizePx + 16 
                           }}>
                             {data[0].location}
                           </span>
@@ -97,8 +97,8 @@ export const ExperienceSection = ({ data, isPreviewMode }: ExperienceSectionProp
                     
                     {/* Description */}
                     <div className="mb-8">
-                      <p className="text-3xl text-gray-700 leading-relaxed font-medium" style={{ 
-                        fontSize: textStyle.fontSizePx + 10, 
+                      <p className="text-5xl text-gray-700 leading-relaxed font-medium" style={{ 
+                        fontSize: textStyle.fontSizePx + 24, 
                         textAlign: textStyle.align as any, 
                         color: textStyle.color 
                       }}>
@@ -109,7 +109,7 @@ export const ExperienceSection = ({ data, isPreviewMode }: ExperienceSectionProp
                     {/* Job Type */}
                     {data[0].type && (
                       <div className="mb-8">
-                        <Badge variant="secondary" className="text-2xl bg-gradient-to-r from-green-100 to-blue-100 text-gray-800 px-8 py-4 shadow-lg">
+                        <Badge variant="secondary" className="text-4xl bg-gradient-to-r from-green-100 to-blue-100 text-gray-800 px-12 py-6 shadow-2xl border-2 border-green-200">
                           {data[0].type}
                         </Badge>
                       </div>
@@ -117,28 +117,28 @@ export const ExperienceSection = ({ data, isPreviewMode }: ExperienceSectionProp
 
                     {/* Key Achievements */}
                     <div className="mt-12">
-                      <h3 className="text-3xl font-bold text-gray-800 mb-6" style={{ 
-                        fontSize: textStyle.fontSizePx + 8, 
+                      <h3 className="text-5xl font-bold text-gray-800 mb-10" style={{ 
+                        fontSize: textStyle.fontSizePx + 20, 
                         color: textStyle.color 
                       }}>
                         Key Achievements
                       </h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg">
-                          <div className="text-2xl font-bold text-gray-800 mb-2">1M+</div>
-                          <div className="text-lg text-gray-600">Users Served</div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="bg-gradient-to-br from-green-100 to-blue-100 backdrop-blur-sm p-8 rounded-2xl shadow-2xl border-2 border-green-200">
+                          <div className="text-5xl font-black text-gray-800 mb-4">1M+</div>
+                          <div className="text-3xl text-gray-600 font-semibold">Users Served</div>
                         </div>
-                        <div className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg">
-                          <div className="text-2xl font-bold text-gray-800 mb-2">50+</div>
-                          <div className="text-lg text-gray-600">Projects Delivered</div>
+                        <div className="bg-gradient-to-br from-blue-100 to-purple-100 backdrop-blur-sm p-8 rounded-2xl shadow-2xl border-2 border-blue-200">
+                          <div className="text-5xl font-black text-gray-800 mb-4">50+</div>
+                          <div className="text-3xl text-gray-600 font-semibold">Projects Delivered</div>
                         </div>
-                        <div className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg">
-                          <div className="text-2xl font-bold text-gray-800 mb-2">99.9%</div>
-                          <div className="text-lg text-gray-600">Uptime</div>
+                        <div className="bg-gradient-to-br from-purple-100 to-pink-100 backdrop-blur-sm p-8 rounded-2xl shadow-2xl border-2 border-purple-200">
+                          <div className="text-5xl font-black text-gray-800 mb-4">99.9%</div>
+                          <div className="text-3xl text-gray-600 font-semibold">Uptime</div>
                         </div>
-                        <div className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg">
-                          <div className="text-2xl font-bold text-gray-800 mb-2">5+</div>
-                          <div className="text-lg text-gray-600">Team Members Led</div>
+                        <div className="bg-gradient-to-br from-pink-100 to-green-100 backdrop-blur-sm p-8 rounded-2xl shadow-2xl border-2 border-pink-200">
+                          <div className="text-5xl font-black text-gray-800 mb-4">5+</div>
+                          <div className="text-3xl text-gray-600 font-semibold">Team Members Led</div>
                         </div>
                       </div>
                     </div>

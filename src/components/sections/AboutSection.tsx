@@ -35,16 +35,16 @@ export const AboutSection = ({ data, isPreviewMode }: AboutSectionProps) => {
         {/* Content Section */}
         <div className="flex-1 text-center lg:text-left max-w-5xl" style={{ fontFamily: textStyle.fontFamily }}>
           <div className="mb-8">
-            <h1 className="text-9xl font-black text-gray-900 mb-8 leading-tight" style={{ 
-              fontSize: textStyle.fontSizePx + 40, 
+            <h1 className="text-[12rem] font-black text-gray-900 mb-12 leading-tight" style={{ 
+              fontSize: textStyle.fontSizePx + 60, 
               color: textStyle.color, 
               textAlign: textStyle.align as any 
             }}>
               {data.name}
             </h1>
             <div className="inline-block">
-              <h2 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-8" style={{ 
-                fontSize: textStyle.fontSizePx + 16, 
+              <h2 className="text-8xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-12" style={{ 
+                fontSize: textStyle.fontSizePx + 32, 
                 textAlign: textStyle.align as any 
               }}>
                 {data.title}
@@ -53,24 +53,24 @@ export const AboutSection = ({ data, isPreviewMode }: AboutSectionProps) => {
           </div>
           
           <div className="space-y-6">
-            <p className="text-gray-700 leading-relaxed text-3xl font-medium" style={{ 
-              fontSize: textStyle.fontSizePx + 12, 
+            <p className="text-gray-700 leading-relaxed text-5xl font-medium" style={{ 
+              fontSize: textStyle.fontSizePx + 24, 
               textAlign: textStyle.align as any, 
               color: textStyle.color 
             }}>
               {data.description}
             </p>
             
-            <div className="mt-12 space-y-4">
-              <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-                <div className="bg-white/80 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg">
-                  <span className="text-xl font-semibold text-gray-700">5+ Years Experience</span>
+            <div className="mt-16 space-y-6">
+              <div className="flex flex-wrap gap-6 justify-center lg:justify-start">
+                <div className="bg-gradient-to-r from-purple-100 to-blue-100 backdrop-blur-sm px-8 py-4 rounded-full shadow-xl border-2 border-purple-200">
+                  <span className="text-3xl font-bold text-gray-800">5+ Years Experience</span>
                 </div>
-                <div className="bg-white/80 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg">
-                  <span className="text-xl font-semibold text-gray-700">Full Stack Developer</span>
+                <div className="bg-gradient-to-r from-blue-100 to-purple-100 backdrop-blur-sm px-8 py-4 rounded-full shadow-xl border-2 border-blue-200">
+                  <span className="text-3xl font-bold text-gray-800">Full Stack Developer</span>
                 </div>
-                <div className="bg-white/80 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg">
-                  <span className="text-xl font-semibold text-gray-700">UI/UX Designer</span>
+                <div className="bg-gradient-to-r from-purple-100 to-pink-100 backdrop-blur-sm px-8 py-4 rounded-full shadow-xl border-2 border-pink-200">
+                  <span className="text-3xl font-bold text-gray-800">UI/UX Designer</span>
                 </div>
               </div>
             </div>
